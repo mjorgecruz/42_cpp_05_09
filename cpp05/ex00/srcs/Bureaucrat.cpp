@@ -23,15 +23,15 @@ Bureaucrat::~Bureaucrat( void )
     std::cout << "Bureaucrat " << this->name << " got killed." << std::endl;
 }
 
-Bureaucrat::Bureaucrat (Bureaucrat &src)
-{
-    this->name = src.getName();
-    this->grade = src.getGrade();
-}
+Bureaucrat::Bureaucrat (Bureaucrat &src): name(src.name), grade(src.grade)
+{}
 
-Bureaucrat & Bureaucrat::operator= (Bureaucrat &src)
+Bureaucrat &Bureaucrat::operator= (Bureaucrat &src)
 {
-    
+    if (this == &src)
+        return (*this);
+    grade = src.grade;
+    return (*this);
 }
 
 Bureaucrat::Bureaucrat ( std::string name, int grade ): name(name), grade(grade)
@@ -43,19 +43,6 @@ std::string Bureaucrat::getName() const
 }
 
 int Bureaucrat::getGrade( void )
-{
-    return(this->grade);
-}
-
-void Bureaucrat::setName(std::string name)
-{
-    this->name = name;
-}
-
-void Bureaucrat::setGrade( int grade )
-{
-    this->grade = grade;
-}
 {
     return(this->grade);
 }
@@ -90,7 +77,7 @@ int Bureaucrat::decrement(Bureaucrat &src)
     }
 }
 
-std::ostream& Bureaucrat::operator<<(std::ostream& os, Bureaucrat name)
+std::ostream& Bureaucrat::operator<<(std::ostream& os, Bureaucrat src)
 {
-    os << getName(name)<< ", bureaucrat grade" << getName().
+    os << src.getName()<< ", bureaucrat grade" << src.getGrade().
 }
