@@ -17,7 +17,6 @@ class Bureaucrat
         Bureaucrat (Bureaucrat &src);
         Bureaucrat ( std::string name, int grade );
         Bureaucrat &operator= (Bureaucrat &src);
-        std::ostream &operator<< (std::ostream& os, Bureaucrat src);
         
         std::string getName( void ) const;
         int getGrade( void );
@@ -35,5 +34,7 @@ class Bureaucrat
                 virtual const char* what() const throw();
         };
 };
+
+std::ostream &operator<< (std::ostream& os, Bureaucrat src);
 
 #endif

@@ -16,6 +16,7 @@
 Bureaucrat::Bureaucrat ( void ): name("NoName")
 {
     this->grade = 150;
+    std::cout << "Bureaucrat " << this->name << " got killed." << std::endl;
 }
 
 Bureaucrat::~Bureaucrat( void )
@@ -77,7 +78,19 @@ int Bureaucrat::decrement(Bureaucrat &src)
     }
 }
 
-std::ostream& Bureaucrat::operator<<(std::ostream& os, Bureaucrat src)
+std::ostream&  operator<<(std::ostream& os, Bureaucrat src)
 {
-    os << src.getName()<< ", bureaucrat grade" << src.getGrade().
+    os << src.getName()<< ", bureaucrat grade" << src.getGrade() << std::endl;
+    return (os);
+}
+
+
+const char*  Bureaucrat::GradeTooHighException::what() const throw()
+{
+    return ("Grade is too high.");
+}
+
+const char*  Bureaucrat::GradeTooLowException::what() const throw()
+{
+    return ("Grade is too low.");
 }
