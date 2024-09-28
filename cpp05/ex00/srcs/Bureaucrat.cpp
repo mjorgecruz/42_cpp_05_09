@@ -13,19 +13,20 @@
 #include "Bureaucrat.hpp"
 
         
-Bureaucrat::Bureaucrat ( void )
+Bureaucrat::Bureaucrat ( void ): name("NoName")
 {
-    
+    this->grade = 150;
 }
 
 Bureaucrat::~Bureaucrat( void )
 {
-    
+    std::cout << "Bureaucrat " << this->name << " got killed." << std::endl;
 }
 
 Bureaucrat::Bureaucrat (Bureaucrat &src)
 {
-
+    this->name = src.getName();
+    this->grade = src.getGrade();
 }
 
 Bureaucrat & Bureaucrat::operator= (Bureaucrat &src)
@@ -33,27 +34,63 @@ Bureaucrat & Bureaucrat::operator= (Bureaucrat &src)
     
 }
 
-std::string Bureaucrat::getName(Bureaucrat ) const
-{
+Bureaucrat::Bureaucrat ( std::string name, int grade ): name(name), grade(grade)
+{}
 
+std::string Bureaucrat::getName() const
+{
+    return(this->name);
 }
 
-std::string Bureaucrat::getGrade( void ) const
+int Bureaucrat::getGrade( void )
 {
-    
+    return(this->grade);
 }
 
-int Bureaucrat::increment(std::string Name, int value)
+void Bureaucrat::setName(std::string name)
 {
-
+    this->name = name;
 }
 
-int Bureaucrat::decrement(std::string Name, int value)
+void Bureaucrat::setGrade( int grade )
 {
-    
+    this->grade = grade;
+}
+{
+    return(this->grade);
 }
 
-std::ostream& Bureaucrat::operator <<(std::ostream& os, Bureaucrat name)
+int Bureaucrat::increment(Bureaucrat &src)
+{
+    int grade;
+    grade = this->getGrade();
+    try
+    {
+        if (grade == 1)
+            throw Bureaucrat::GradeTooHighException();
+        else
+            grade--;
+    }catch (Bureaucrat::GradeTooHighException &e){
+        std::cout << e.what() << std::endl;
+    }
+}
+
+int Bureaucrat::decrement(Bureaucrat &src)
+{
+    int grade;
+    grade = this->getGrade();
+    try
+    {
+        if (grade == 150)
+            throw Bureaucrat::GradeTooLowException();
+        else
+            grade++;
+    }catch (Bureaucrat::GradeTooLowException &e){
+        std::cout << e.what() << std::endl;
+    }
+}
+
+std::ostream& Bureaucrat::operator<<(std::ostream& os, Bureaucrat name)
 {
     os << getName(name)<< ", bureaucrat grade" << getName().
 }

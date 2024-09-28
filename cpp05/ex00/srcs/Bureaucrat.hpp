@@ -15,12 +15,25 @@ class Bureaucrat
         Bureaucrat ( void );
         ~Bureaucrat( void );
         Bureaucrat (Bureaucrat &src);
+        Bureaucrat ( std::string name, int grade );
         Bureaucrat &operator= (Bureaucrat &src);
+        std::ostream &operator<< (std::ostream& os, Bureaucrat src);
         
-        std::string getName() const;
-        std::string getGrade( void ) const;
-        int increment(std::string Name, int value);
-        int decrement(std::string Name, int value);
+        std::string getName( void ) const;
+        int getGrade( void );
+        int increment(Bureaucrat &src);
+        int decrement(Bureaucrat &src);
+
+        class GradeTooHighException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
+        class GradeTooLowException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
 };
 
 #endif
