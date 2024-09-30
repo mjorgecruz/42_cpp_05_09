@@ -13,10 +13,10 @@ int main ( void )
 		Bureaucrat b2(b1);
 	}
 	catch (Bureaucrat::GradeTooHighException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	catch (Bureaucrat::GradeTooLowException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 
 	try
@@ -24,10 +24,10 @@ int main ( void )
 		Bureaucrat b3("b3", 151);
 	}
 	catch (Bureaucrat::GradeTooHighException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	catch (Bureaucrat::GradeTooLowException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 
 	Bureaucrat b4("b4", 1);
@@ -39,7 +39,7 @@ int main ( void )
 		PresidentialPardonForm f1;
 	}
 	catch (AForm::UnnamedAFormException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	PresidentialPardonForm f2("lelz");
 	ShrubberyCreationForm f3("cpp05");

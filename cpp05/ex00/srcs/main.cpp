@@ -10,10 +10,10 @@ int main ( void )
         Bureaucrat b5(b2);
     }
     catch (Bureaucrat::GradeTooHighException &e){
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     catch (Bureaucrat::GradeTooLowException &e){
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 
     try
@@ -21,10 +21,10 @@ int main ( void )
         Bureaucrat b3("b3", 151);
     }
     catch (Bureaucrat::GradeTooHighException &e){
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     catch (Bureaucrat::GradeTooLowException &e){
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 
     Bureaucrat b1("b1", 1);

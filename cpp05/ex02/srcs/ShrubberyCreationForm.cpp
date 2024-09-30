@@ -48,15 +48,15 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
         system(command.c_str());
     }
     catch (AForm::GradeTooHighException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
         throw AForm::IssueException();
 	}
 	catch (AForm::GradeTooLowException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
         throw AForm::IssueException();
 	}
     catch (AForm::FormUnsignedException &e){
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
         throw AForm::IssueException();
 	}
 }

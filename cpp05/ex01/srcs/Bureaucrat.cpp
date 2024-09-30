@@ -16,12 +16,12 @@
 Bureaucrat::Bureaucrat ( void ): name("NoName")
 {
 	this->grade = 150;
-	std::cout << "Bureaucrat " << this->name << " got killed." << std::endl;
+	std::cerr << "Bureaucrat " << this->name << " got killed." << std::endl;
 }
 
 Bureaucrat::~Bureaucrat( void )
 {
-	std::cout << "Bureaucrat " << this->name << " got killed." << std::endl;
+	std::cerr << "Bureaucrat " << this->name << " got killed." << std::endl;
 }
 
 Bureaucrat::Bureaucrat (Bureaucrat &src): name(src.name), grade(src.grade)
@@ -44,7 +44,7 @@ Bureaucrat::Bureaucrat ( std::string name, int grade ): name(name)
 		else
 		{
 			this->grade = grade;
-			std::cout << "Bureaucrat " << this->name << " got created." << std::endl;
+			std::cerr << "Bureaucrat " << this->name << " got created." << std::endl;
 		}
 }
 
@@ -88,16 +88,16 @@ void Bureaucrat::signForm( Form &form )
 {
 	try{
 		form.beSigned(*this);
-		std::cout << this->getName() << " signed " << form.getName() << std::endl;
+		std::cerr << this->getName() << " signed " << form.getName() << std::endl;
 	}
 	catch(Form::GradeTooLowException &e){
-		std::cout << this->getName() << " couldn't sign " << form.getName() << " because ";
-		std::cout << e.what() << std::endl;
+		std::cerr << this->getName() << " couldn't sign " << form.getName() << " because ";
+		std::cerr << e.what() << std::endl;
 	}
 	catch(Form::AlreadySignedException &e)
 	{
-		std::cout << this->getName() << " couldn't sign " << form.getName() << " because ";
-		std::cout << e.what() << std::endl;
+		std::cerr << this->getName() << " couldn't sign " << form.getName() << " because ";
+		std::cerr << e.what() << std::endl;
 	}
 }
 

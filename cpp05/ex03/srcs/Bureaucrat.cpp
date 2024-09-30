@@ -92,12 +92,12 @@ void Bureaucrat::signAForm( AForm &AForm )
 	}
 	catch(AForm::GradeTooLowException &e){
 		std::cout << this->getName() << " couldn't sign " << AForm.getName() << " because ";
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	catch(AForm::AlreadySignedException &e)
 	{
 		std::cout << this->getName() << " couldn't sign " << AForm.getName() << " because ";
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 
