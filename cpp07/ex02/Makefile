@@ -15,7 +15,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 INCDIR:=srcs
 ODIR:=obj
 
-SRC := main.cpp
+SRC := main.cpp 
 
 OBJ := $(patsubst %.cpp, $(ODIR)/%.o,$(SRC))
 
