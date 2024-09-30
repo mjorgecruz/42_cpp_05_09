@@ -14,7 +14,8 @@
 
 template < typename T > Array<T>::Array( void )
 {
-    arr = new T[1];
+    arr = new T[0];
+    _size = 0;
 };
 
 template < typename T > Array<T>::~Array( void )
@@ -24,8 +25,8 @@ template < typename T > Array<T>::~Array( void )
 
 template < typename T > Array<T>::Array( Array &src )
 {
-    unsigned int temp = src.size();
-    arr = new T[temp];
+    _size = src.size();
+    arr = new T[_size];
     *this = src;
 
 };
@@ -34,39 +35,30 @@ template < typename T > Array<T>& Array<T>::operator= (Array &src)
 {
     if (this == &src)
 	    return (*this);
-    if (this->size() != src.size())
-        throw Array::DifferentArrDimensionsExcetion();
-    unsigned int temp = src.size();
-    
-    for(unsigned int i = 0; i < temp; i++ )
+    unsigned int t = src.size();
+    T *temp = new T[t];
+    for(unsigned int i = 0; i < t; i++ )
     {
-        arr[i] = src.arr[i];
+        temp[i] = src.arr[i];
     }
+    delete[] this->arr;
+    this->arr = temp;
     return(*this);
 };
 
 template < typename T > Array<T>::Array(unsigned int n)
 {
     arr = new T[n];
+    _size = n;
 }
 template < typename T > unsigned int Array<T>::size( void )
 {
-    unsigned int c = 0;
-    while (this->arr[c])
-    {
-   		c++;
-    }
-    return(c);
+    return(_size);
 }
 
-template < typename T > T&  Array<T>::operator[](unsigned int i)
+template < typename T > T&  Array<T>::operator[](int i)
 {
-    if (i < 0 || i > this->size())
-        throw std::exception();
+    if (i < 0 || i >= (int) (this->size()))
+         throw std::out_of_range("Index out of range");
     return this->arr[i];
-}
-
-template < typename T >const char *Array<T>::DifferentArrDimensionsExcetion::what() const throw()
-{
-    return ("Arrays are of different dimenstions");
 }

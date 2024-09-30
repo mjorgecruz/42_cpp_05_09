@@ -23,6 +23,7 @@ class Array
 {
     private:
         T *arr;
+        unsigned int _size;
     
     public:
         Array( void );
@@ -30,17 +31,11 @@ class Array
         Array(Array &src);
         Array &operator= (Array &src);
 
-        T& operator [](unsigned int i);
+        T& operator [](int i);
         
         Array(unsigned int n);
         unsigned int size ( void );
-        
-        class DifferentArrDimensionsExcetion : public std::exception
-        {
-            public:
-                virtual const char *what() const throw();
-        };
-        
+          
 };
 
 #include "Array.tpp"

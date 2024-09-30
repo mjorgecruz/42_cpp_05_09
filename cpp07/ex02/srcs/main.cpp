@@ -18,7 +18,6 @@ int main(int, char**)
         Array<int> tmp = numbers;
         Array<int> test(tmp);
     }
-
     for (int i = 0; i < MAX_VAL; i++)
     {
         if (mirror[i] != numbers[i])
