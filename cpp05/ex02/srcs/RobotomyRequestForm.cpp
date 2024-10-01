@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 03:12:11 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 12:19:11 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:18:29 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -38,7 +38,7 @@ void RobotomyRequestForm::beExecuted(Bureaucrat const & executor) const
 {
     srand(time(NULL));
     (void) executor;
-    if (rand() %2)
+    if (rand() % 2)
     {
         std::cout << this->getTarget() << " Brrrrrr." << std::endl;
         std::cout << this->getTarget() << " has been robotomized successfully." << std::endl;

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 02:30:26 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 11:24:54 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:16:24 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,7 +17,9 @@ ShrubberyCreationForm::ShrubberyCreationForm(): AForm()
 {}
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
-{}
+{  
+    std::cout << "ShrubberyCreationForm " << this->getName() << " got destroyed." << std::endl; 
+}
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &src): AForm(src)
 {}
@@ -41,7 +43,7 @@ void ShrubberyCreationForm::beExecuted(Bureaucrat const & executor) const
     (void) executor;
     std::ofstream outfile((getTarget() + "_shrubbery").c_str());
     if (!outfile.is_open())
-        throw AForm::IssueException();
+        throw std::exception();
     for (int i = 0; i < 3 ; i++)
     {
         outfile << 

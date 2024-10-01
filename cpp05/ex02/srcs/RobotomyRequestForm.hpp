@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:37:35 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 11:10:00 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:08:48 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,5 +22,5 @@ class RobotomyRequestForm : public AForm
         RobotomyRequestForm &operator= (RobotomyRequestForm &src);
         RobotomyRequestForm(std::string target);
 
-        virtual void beExecuted(Bureaucrat const & executor) const;
+        void beExecuted(Bureaucrat const & executor) const;
 };

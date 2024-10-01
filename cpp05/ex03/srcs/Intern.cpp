@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 03:22:22 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 14:13:26 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:28:04 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,7 +21,7 @@ Intern::~Intern()
 
 Intern::Intern(Intern &src)
 {
-    *this = src;
+    (void) src;
 }
 
 Intern &Intern::operator= (Intern &src)
@@ -48,6 +48,7 @@ AForm *Intern::makeForm(std::string formName, std::string target)
     {
         if (comparer[i] == formName)
         {
+            std::cout << "Intern creates " << formName << std::endl;
             return ((this->*all[i])(target));
         }
     }

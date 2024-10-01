@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:11:44 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/01 11:21:06 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:05:02 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,7 +23,9 @@ AForm::~AForm( void )
 }
 
 AForm::AForm (AForm &src): name(src.name), isSigned(src.isSigned), reqGrade(src.reqGrade), execGrade(src.execGrade), target(src.target)
-{}
+{
+    std::cout << "AForm" << this->name << "was created" << std::endl;
+}
 
 AForm::AForm ( std::string name, int reqGrade, int execGrade, std::string target): name(name), reqGrade(reqGrade), execGrade(execGrade), target(target)
 {
@@ -55,14 +57,15 @@ void AForm::beSigned(Bureaucrat &bureaucrat)
         throw AForm::AlreadySignedException();
     else
         this->isSigned = true;
+    
 }
 
 void AForm::execute(Bureaucrat const & executor) const
 {
-    if (executor.getGrade() > this->getExecGrade())
-        throw AForm::GradeTooLowException();
-    else if (this->isSigned == false)
+    if (this->isSigned == false)
         throw AForm::FormUnsignedException();
+    else if (executor.getGrade() > this->getExecGrade())
+        throw AForm::GradeTooLowException();
     beExecuted(executor);
 }
 

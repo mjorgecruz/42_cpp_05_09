@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:34:27 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 11:10:03 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:08:52 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -29,7 +29,7 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(ShrubberyCreationForm &src);
 		ShrubberyCreationForm &operator= (ShrubberyCreationForm &src);
 		ShrubberyCreationForm(std::string target);
-		virtual void beExecuted(Bureaucrat const & executor) const;
+		void beExecuted(Bureaucrat const & executor) const;
 };
 
 #endif

@@ -42,6 +42,7 @@ int main ( void )
 	try
 	{
 		Form f2("f2", 10, 150);
+		std::cout << f2; 
 		b5.signForm(f2);
 		b6.signForm(f2);
 		b4.signForm(f2);

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:31:34 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/01 14:18:34 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:53:07 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -64,7 +64,7 @@ void Bureaucrat::increment()
 	if (grade == 1)
 		throw Bureaucrat::GradeTooHighException();
 	else
-		grade--;
+		this->grade--;
 }
 
 void Bureaucrat::decrement()
@@ -74,12 +74,12 @@ void Bureaucrat::decrement()
 	if (grade == 150)
 		throw Bureaucrat::GradeTooLowException();
 	else
-		grade++;
+		this->grade++;
 }
 
-std::ostream&  operator<<(std::ostream& os, Bureaucrat src)
+std::ostream&  operator<<(std::ostream& os, Bureaucrat &src)
 {
-	os << src.getName()<< ", bureaucrat grade " << src.getGrade() << std::endl;
+	os << src.getName()<< ", bureaucrat grade " << src.getGrade() << "." << std::endl;
 	return (os);
 }
 

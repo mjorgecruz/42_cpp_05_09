@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 22:52:57 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/28 22:52:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:45:15 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "Form.hpp"
 
@@ -76,7 +76,7 @@ int Form::getExecGrade( void ) const
     return (this->execGrade);
 }
 
-std::ostream &operator<< (std::ostream& os, Form src)
+std::ostream &operator<< (std::ostream& os, Form &src)
 {
     os << "Form " << src.getName() << ", signature: " << src.getIsSigned()<<", required grade: " << src.getReqGrade() << ", execution grade: " << src.getExecGrade() << std::endl;
     return (os);
