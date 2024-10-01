@@ -10,9 +10,9 @@ class Bureaucrat
     private:
         std::string const name;
         int grade;
+        Bureaucrat ( void );
 
     public:
-        Bureaucrat ( void );
         ~Bureaucrat( void );
         Bureaucrat (Bureaucrat &src);
         Bureaucrat ( std::string name, int grade );

@@ -34,13 +34,7 @@ int main ( void )
 	Bureaucrat b5("b5", 15);
 	Bureaucrat b6("b6", 10);
 
-	try
-	{
-		PresidentialPardonForm f1;
-	}
-	catch (AForm::UnnamedAFormException &e){
-		std::cerr << e.what() << std::endl;
-	}
+	PresidentialPardonForm f1("Very Nice");
 	PresidentialPardonForm f2("lelz");
 	ShrubberyCreationForm f3("cpp05");
 
@@ -48,6 +42,19 @@ int main ( void )
 	b6.signAForm(f3);
 	b4.signAForm(f2);
 
-	b5.executeForm(f3);
+	try
+	{
+		b5.executeForm(f3);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
 
+	try
+	{
+		b5.executeForm(f3);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
 }

@@ -39,10 +39,29 @@ int main ( void )
 	catch (Form::UnnamedFormException &e){
 		std::cerr << e.what() << std::endl;
 	}
-	Form f2("f2", 10, 150);
+	try
+	{
+		Form f2("f2", 10, 150);
+		b5.signForm(f2);
+		b6.signForm(f2);
+		b4.signForm(f2);
 
-	b5.signForm(f2);
-	b6.signForm(f2);
-	b4.signForm(f2);
-
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
+	try
+	{
+		Form f3("f3", -2, 150);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
+	try
+	{
+		Form f4("f4", 50, 155);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
 }

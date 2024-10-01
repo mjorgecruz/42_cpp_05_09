@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AForm.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 22:52:57 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/28 22:52:57 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/01 11:11:44 by masoares          #+#    #+#             */
+/*   Updated: 2024/10/01 11:21:06 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "AForm.hpp"
 
@@ -22,10 +22,10 @@ AForm::~AForm( void )
     std::cout << "AForm " << this->name << " got destroyed." << std::endl;
 }
 
-AForm::AForm (AForm &src): name(src.name), isSigned(src.isSigned), reqGrade(src.reqGrade), execGrade(src.execGrade)
+AForm::AForm (AForm &src): name(src.name), isSigned(src.isSigned), reqGrade(src.reqGrade), execGrade(src.execGrade), target(src.target)
 {}
 
-AForm::AForm ( std::string name, int reqGrade, int execGrade ): name(name), reqGrade(reqGrade), execGrade(execGrade)
+AForm::AForm ( std::string name, int reqGrade, int execGrade, std::string target): name(name), reqGrade(reqGrade), execGrade(execGrade), target(target)
 {
     if (reqGrade < 1 || execGrade < 1)
         throw AForm::GradeTooHighException();
@@ -43,6 +43,7 @@ AForm & AForm::operator= (AForm &src)
     if (this == &src)
         return (*this);
     isSigned = src.isSigned;
+    target = src.target;
     return (*this);
 }
 
@@ -56,12 +57,13 @@ void AForm::beSigned(Bureaucrat &bureaucrat)
         this->isSigned = true;
 }
 
-void AForm::beExecuted(Bureaucrat const &bureaucrat) const
+void AForm::execute(Bureaucrat const & executor) const
 {
-    if (bureaucrat.getGrade() > this->getExecGrade())
+    if (executor.getGrade() > this->getExecGrade())
         throw AForm::GradeTooLowException();
     else if (this->isSigned == false)
         throw AForm::FormUnsignedException();
+    beExecuted(executor);
 }
 
 std::string AForm::getName( void ) const
@@ -82,6 +84,11 @@ int AForm::getReqGrade( void ) const
 int AForm::getExecGrade( void ) const
 {
     return (this->execGrade);
+}
+
+std::string AForm::getTarget( void ) const
+{
+    return (this->target);
 }
 
 std::ostream &operator<< (std::ostream& os, const AForm &src)

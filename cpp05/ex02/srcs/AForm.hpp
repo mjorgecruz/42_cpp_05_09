@@ -28,22 +28,24 @@ class AForm
         bool isSigned;
         int const reqGrade;
         int const execGrade;
+        std::string target;
     
     public:
         AForm ( void );
-        ~AForm( void );
+        virtual ~AForm( void );
         AForm (AForm &src);
-        AForm ( std::string name, int reqGrade, int execGrade );
+        AForm ( std::string name, int reqGrade, int execGrade, std::string target);
         AForm &operator= (AForm &src);
         void beSigned(Bureaucrat &bureaucrat);
-        void beExecuted(Bureaucrat const &bureaucrat ) const;
+        virtual void beExecuted(Bureaucrat const &bureaucrat ) const = 0;
 
         std::string getName( void ) const;
         bool getIsSigned( void ) const;
         int getReqGrade( void ) const; 
         int getExecGrade( void ) const;
+        std::string getTarget( void ) const;
 
-        virtual void execute(Bureaucrat const & executor) const = 0;
+        void execute(Bureaucrat const & executor) const;
 
         class GradeTooHighException : public std::exception
         {
@@ -80,6 +82,6 @@ class AForm
 
 };
 
-std::ostream &operator<< (std::ostream& os, AForm src);
+std::ostream &operator<< (std::ostream& os, AForm &src);
 
 #endif

@@ -35,24 +35,56 @@ int main ( void )
 	Bureaucrat b5("b5", 15);
 	Bureaucrat b6("b6", 10);
 
-	try
-	{
-		PresidentialPardonForm f1;
-	}
-	catch (AForm::UnnamedAFormException &e){
-		std::cerr << e.what() << std::endl;
-	}
 
 	Intern i1;
 	Intern i2;
 
 	AForm *f2 = i1.makeForm("PresidentialPardonForm", "lelz");
-	AForm *f3 = i1.makeForm("ShrubberyCreationForm", "lelz");
+	AForm *f3 = i1.makeForm("RobotomyRequestForm", "lelz");
+	AForm *f4 = i1.makeForm("ShrubberyCreationForm", "whaat");
+
 
 	b5.signAForm(*f2);
 	b6.signAForm(*f3);
 	b4.signAForm(*f2);
+	try
+	{
+		b5.executeForm(*f2);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
+	try
+	{
+		b5.executeForm(*f3);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
+	try
+	{
+		b4.executeForm(*f3);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
+	try
+	{
+		b4.executeForm(*f4);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
+	b4.signAForm(*f4);
+	try
+	{
+		b4.executeForm(*f4);
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
 
-	b5.executeForm(*f3);
-
+	delete f4;
+	delete f2;
+	delete f3;
 }

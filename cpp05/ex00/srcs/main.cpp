@@ -20,10 +20,10 @@ int main ( void )
     {
         Bureaucrat b3("b3", 151);
     }
-    catch (Bureaucrat::GradeTooHighException &e){
-        std::cerr << e.what() << std::endl;
-    }
-    catch (Bureaucrat::GradeTooLowException &e){
+    // catch (Bureaucrat::GradeTooHighException &e){
+    //     std::cerr << e.what() << std::endl;
+    // }
+    catch (std::exception & e){
         std::cerr << e.what() << std::endl;
     }
 

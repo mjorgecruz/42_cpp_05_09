@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:31:34 by masoares          #+#    #+#             */
-/*   Updated: 2024/09/27 12:03:40 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/01 09:10:34 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -16,7 +16,7 @@
 Bureaucrat::Bureaucrat ( void ): name("NoName")
 {
     this->grade = 150;
-    std::cout << "Bureaucrat " << this->name << " got killed." << std::endl;
+    //std::cout << "Bureaucrat " << this->name << " got killed." << std::endl;
 }
 
 Bureaucrat::~Bureaucrat( void )

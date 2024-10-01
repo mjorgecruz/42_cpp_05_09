@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 03:18:43 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/29 03:18:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:12:43 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #pragma once
 #ifndef INTERN_HPP
@@ -21,6 +21,11 @@
 
 class Intern 
 {
+    private:
+        AForm *CreatePresidentialPardonForm(std::string target);
+        AForm *CreateRobotomyRequestForm(std::string target);
+        AForm *CreateShrubberyCreationForm(std::string target);
+    
     public:
         Intern();
         ~Intern();
@@ -28,7 +33,7 @@ class Intern
         Intern &operator= (Intern &src);
 
         AForm *makeForm(std::string formName, std::string target);
-
+        
         class InvalidFormNameException : public std::exception
         {
             public:
@@ -36,4 +41,5 @@ class Intern
         };
 };
 
+typedef AForm *(Intern::*function)(std::string target);
 #endif
