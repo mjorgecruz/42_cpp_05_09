@@ -44,7 +44,7 @@ AForm *Intern::makeForm(std::string formName, std::string target)
         "PresidentialPardonForm"
     };
 
-    for (unsigned long i = 0; i < comparer->length(); i++)
+    for (unsigned long i = 0; i < (sizeof(comparer)/sizeof(*comparer)); i++)
     {
         if (comparer[i] == formName)
         {

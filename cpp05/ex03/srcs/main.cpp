@@ -38,15 +38,23 @@ int main ( void )
 
 	Intern i1;
 	Intern i2;
+	try
+	{
+		AForm *f5 = i1.makeForm("lalala", "whaat");
+		delete f5;
+	}
+	catch (std::exception &e){
+		std::cerr << e.what() << std::endl;
+	}
 
 	AForm *f2 = i1.makeForm("PresidentialPardonForm", "lelz");
 	AForm *f3 = i1.makeForm("RobotomyRequestForm", "lelz");
 	AForm *f4 = i1.makeForm("ShrubberyCreationForm", "whaat");
 
-
 	b5.signAForm(*f2);
 	b6.signAForm(*f3);
 	b4.signAForm(*f2);
+	
 	try
 	{
 		b5.executeForm(*f2);

@@ -41,7 +41,7 @@ void ShrubberyCreationForm::beExecuted(Bureaucrat const & executor) const
     (void) executor;
     std::ofstream outfile((getTarget() + "_shrubbery").c_str());
     if (!outfile.is_open())
-        throw AForm::IssueException();
+        throw std::exception();
     for (int i = 0; i < 3 ; i++)
     {
         outfile << 

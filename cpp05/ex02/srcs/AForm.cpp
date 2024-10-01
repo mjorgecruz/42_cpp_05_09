@@ -124,8 +124,3 @@ const char*  AForm::FormUnsignedException::what() const throw()
 {
     return ("AForm is not signed.");
 }
-
-const char*  AForm::IssueException::what() const throw()
-{
-    return ("");
-}
