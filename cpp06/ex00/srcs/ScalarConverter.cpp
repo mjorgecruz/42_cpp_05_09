@@ -42,9 +42,8 @@ void ScalarConverter::convert(std::string src)
     isChar = false;
     
     // string -> char
-    if(sscanf(src.c_str(), "%d", &i) != 1 && i < 256)
+    if(sscanf(src.c_str(), "%d", &i) == 1 && i < 256)
     {
-
         if (i >= 0 && i < 32)
             std::cout << "num_char = " << "Non displayable" << std::endl;
         else
@@ -54,6 +53,7 @@ void ScalarConverter::convert(std::string src)
         }
     }
     else
+    {
         if (src.size() == 1)
         {
             isChar = true;
@@ -61,6 +61,7 @@ void ScalarConverter::convert(std::string src)
         }
         else
             std::cout << "num_char = " << "impossible" << std::endl;
+    }
 
     // string -> integer
     if(sscanf(src.c_str(), "%d", &i) != 1 &&  isChar == false)
@@ -72,16 +73,25 @@ void ScalarConverter::convert(std::string src)
     else
         std::cout << "num_int = " << i << std::endl;
 
-
     // string -> float
     if(sscanf(src.c_str(), "%f", &f) != 1)
-        std::cout << "num_float = " << "impossible" << std::endl;
+    {
+        if (isChar == true)
+            std::cout << "num_float = " << std::fixed << std::setprecision(1) << (float) (src.c_str())[0] << "f" << std::endl;
+        else
+            std::cout << "num_float = " << "impossible" << std::endl;
+    }
     else
         std::cout << "num_float = " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
     
     // string -> double
     if(sscanf(src.c_str(), "%lf", &d) != 1)
-        std::cout << "num_int = " << "impossible" << std::endl;
+    {
+        if (isChar == true)
+            std::cout << "num_double = " << std::fixed << std::setprecision(1) << (double) (src.c_str())[0] << std::endl;
+        else
+            std::cout << "num_double = " << "impossible" << std::endl;
+    }
     else
         std::cout << "num_double = " << d << std::endl;
     
