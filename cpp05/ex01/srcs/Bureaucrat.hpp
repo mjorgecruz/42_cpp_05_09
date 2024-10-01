@@ -39,6 +39,6 @@ class Bureaucrat
         };
 };
 
-std::ostream &operator<< (std::ostream& os, Bureaucrat src);
+std::ostream &operator<< (std::ostream& os, Bureaucrat &src);
 
 #endif

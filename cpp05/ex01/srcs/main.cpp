@@ -64,4 +64,7 @@ int main ( void )
 	catch (std::exception &e){
 		std::cerr << e.what() << std::endl;
 	}
+	// Form f("f", 1, 1);
+	// Bureaucrat b;
+	// b.signForm(f);
 }

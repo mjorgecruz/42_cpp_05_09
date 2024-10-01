@@ -26,14 +26,27 @@ int main ( void )
     catch (std::exception & e){
         std::cerr << e.what() << std::endl;
     }
+    try
+    {
+        Bureaucrat b1("b1", 1);
+        std::cout << b1;
 
-    Bureaucrat b1("b1", 1);
-    Bureaucrat b4("b4", 150);
+        Bureaucrat b4("b4", 150);
+        Bureaucrat b6(b4);
 
-    b1.decrement();
-    std::cout << b1;
+        b1.decrement();
+        std::cout << b1;
 
-    b4.increment();
-    std::cout << b4;
+        b4.increment();
+        std::cout << b4;
+        b4.decrement();
+        std::cout << b4;
+        b4.decrement();
+        std::cout << b4;
+
+    }
+    catch (std::exception & e){
+        std::cerr << e.what() << std::endl;
+    }
 
 }
