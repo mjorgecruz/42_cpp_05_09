@@ -114,127 +114,144 @@ void ScalarConverter::convert(std::string src)
             type = D;
     }
     
-    switch (type)
+    bool printed = false;
+    while (printed == false)
     {
-        case C:
-            Converter.c = src[0];
-            Converter.i = static_cast<int>(Converter.c);
-            Converter.f = static_cast<float>(Converter.c);
-            Converter.d = static_cast<double>(Converter.c);
-            break;
-        case I:
-            if (std::strtold(src.c_str(), NULL) > std::numeric_limits<int>::max() || std::strtold(src.c_str(), NULL) < std::numeric_limits<int>::min())
-            {
-                type = F;
-            }
-            else
-            {
-                sscanf(src.c_str(), "%i", &Converter.i);
-                if (Converter.i < 255.0 && Converter.i > 0 )
-                {
-                    Converter.c = static_cast<char>(Converter.i);
-                    Converter.f = static_cast<float>(Converter.i);
-                    Converter.d = static_cast<double>(Converter.i);
-                    std::cout << "num_char = " << Converter.c << std::endl;
-                    std::cout << "num_int = " << Converter.i << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
-                }
-                else
-                {
-                    Converter.f = static_cast<float>(Converter.i);
-                    Converter.d = static_cast<double>(Converter.i);
-                    std::cout << "num_char = " << "impossible" << std::endl;
-                    std::cout << "num_int = " << Converter.i << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
-                }
+        switch (type)
+        {
+            case C:
+                Converter.c = src[0];
+                Converter.i = static_cast<int>(Converter.c);
+                Converter.f = static_cast<float>(Converter.c);
+                Converter.d = static_cast<double>(Converter.c);
+                printed = true;
                 break;
-            }
-        case F:
-            if (std::strtold(src.c_str(), NULL) > std::numeric_limits<float>::max() || std::strtold(src.c_str(), NULL) < std::numeric_limits<float>::min())
-            {
-                type = D;
-            }
-            else
-            {
-                sscanf(src.c_str(), "%f", &Converter.f);
-                if (Converter.f < 255.0 && Converter.f > 0 )
+            case I:
+                if (std::strtold(src.c_str(), NULL) > std::numeric_limits<int>::max() || std::strtold(src.c_str(), NULL) < std::numeric_limits<int>::min())
                 {
-                    Converter.c = static_cast<char>(Converter.f);
-                    Converter.i = static_cast<int>(Converter.f);
-                    Converter.d = static_cast<double>(Converter.f);
-                    std::cout << "num_char = " << Converter.c << std::endl;
-                    std::cout << "num_int = " << Converter.i << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
-                }
-                else if (Converter.f < std::numeric_limits<int>::max() || Converter.f > std::numeric_limits<int>::min())
-                {
-                    Converter.i = static_cast<int>(Converter.f);
-                    Converter.d = static_cast<double>(Converter.f);
-                    std::cout << "num_char = " << "impossible" << std::endl;
-                    std::cout << "num_int = " << Converter.i << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
+                    type = F;
+                    break;
                 }
                 else
                 {
-                    Converter.d = static_cast<double>(Converter.f);
-                    std::cout << "num_char = " << "impossible" << std::endl;
-                    std::cout << "num_int = " << "impossible" << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
+                    sscanf(src.c_str(), "%i", &Converter.i);
+                    if (Converter.i < 255.0 && Converter.i > 0 )
+                    {
+                        Converter.c = static_cast<char>(Converter.i);
+                        Converter.f = static_cast<float>(Converter.i);
+                        Converter.d = static_cast<double>(Converter.i);
+                        std::cout << "num_char = " << Converter.c << std::endl;
+                        std::cout << "num_int = " << Converter.i << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    else
+                    {
+                        Converter.f = static_cast<float>(Converter.i);
+                        Converter.d = static_cast<double>(Converter.i);
+                        std::cout << "num_char = " << "impossible" << std::endl;
+                        std::cout << "num_int = " << Converter.i << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    break;
                 }
-                break;
-            }
-        case D:
-            if (std::strtold(src.c_str(), NULL) > std::numeric_limits<float>::max() || std::strtold(src.c_str(), NULL) < std::numeric_limits<float>::min())
-            {
-                std::cout << "num_char = " << "impossible" << std::endl;
-                std::cout << "num_int = " << "impossible" << std::endl;
-                std::cout << "num_float = " << "impossible" << std::endl;
-                std::cout << "num_double = " << "impossible" << std::endl;
-            }
-            else
-            {
-                sscanf(src.c_str(), "%lf", &Converter.d);
-                if (Converter.d < 255.0 && Converter.d > 0 )
+            case F:
+                if (std::strtold(src.c_str(), NULL) > std::numeric_limits<float>::max() || std::strtold(src.c_str(), NULL) < std::numeric_limits<float>::min())
                 {
-                    Converter.c = static_cast<char>(Converter.d);
-                    Converter.i = static_cast<int>(Converter.d);
-                    Converter.f = static_cast<float>(Converter.d);
-                    std::cout << "num_char = " << Converter.c << std::endl;
-                    std::cout << "num_int = " << Converter.i << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
-                }
-                else if (Converter.d < std::numeric_limits<int>::max() || Converter.d > std::numeric_limits<int>::min())
-                {
-                    Converter.i = static_cast<int>(Converter.d);
-                    Converter.f = static_cast<float>(Converter.d);
-                    std::cout << "num_char = " << "impossible" << std::endl;
-                    std::cout << "num_int = " << Converter.i << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
-                }
-                else if (Converter.d < std::numeric_limits<float>::max() || Converter.d > std::numeric_limits<float>::min())
-                {
-                    Converter.f = static_cast<float>(Converter.d);
-                    std::cout << "num_char = " << "impossible" << std::endl;
-                    std::cout << "num_int = " << "impossible" << std::endl;
-                    std::cout << "num_float = " << Converter.f << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
+                    type = D;
+                    break;
                 }
                 else
+                {
+                    sscanf(src.c_str(), "%f", &Converter.f);
+                    if (Converter.f < 255.0 && Converter.f > 0 )
+                    {
+                        Converter.c = static_cast<char>(Converter.f);
+                        Converter.i = static_cast<int>(Converter.f);
+                        Converter.d = static_cast<double>(Converter.f);
+                        std::cout << "num_char = " << Converter.c << std::endl;
+                        std::cout << "num_int = " << Converter.i << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    else if (Converter.f < std::numeric_limits<int>::max() || Converter.f > std::numeric_limits<int>::min())
+                    {
+                        Converter.i = static_cast<int>(Converter.f);
+                        Converter.d = static_cast<double>(Converter.f);
+                        std::cout << "num_char = " << "impossible" << std::endl;
+                        std::cout << "num_int = " << Converter.i << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    else
+                    {
+                        Converter.d = static_cast<double>(Converter.f);
+                        std::cout << "num_char = " << "impossible" << std::endl;
+                        std::cout << "num_int = " << "impossible" << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    break;
+                }
+            case D:
+                if (std::strtold(src.c_str(), NULL) > std::numeric_limits<float>::max() || std::strtold(src.c_str(), NULL) < std::numeric_limits<float>::min())
                 {
                     std::cout << "num_char = " << "impossible" << std::endl;
                     std::cout << "num_int = " << "impossible" << std::endl;
                     std::cout << "num_float = " << "impossible" << std::endl;
-                    std::cout << "num_double = " << Converter.d << std::endl;
+                    std::cout << "num_double = " << "impossible" << std::endl;
+                    printed = true;
                 }
-                break;
-            }
-        break;
+                else
+                {
+                    sscanf(src.c_str(), "%lf", &Converter.d);
+                    if (Converter.d < 255.0 && Converter.d > 0 )
+                    {
+                        Converter.c = static_cast<char>(Converter.d);
+                        Converter.i = static_cast<int>(Converter.d);
+                        Converter.f = static_cast<float>(Converter.d);
+                        std::cout << "num_char = " << Converter.c << std::endl;
+                        std::cout << "num_int = " << Converter.i << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    else if (Converter.d < std::numeric_limits<int>::max() || Converter.d > std::numeric_limits<int>::min())
+                    {
+                        Converter.i = static_cast<int>(Converter.d);
+                        Converter.f = static_cast<float>(Converter.d);
+                        std::cout << "num_char = " << "impossible" << std::endl;
+                        std::cout << "num_int = " << Converter.i << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    else if (Converter.d < std::numeric_limits<float>::max() || Converter.d > std::numeric_limits<float>::min())
+                    {
+                        Converter.f = static_cast<float>(Converter.d);
+                        std::cout << "num_char = " << "impossible" << std::endl;
+                        std::cout << "num_int = " << "impossible" << std::endl;
+                        std::cout << "num_float = " << Converter.f << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    else
+                    {
+                        std::cout << "num_char = " << "impossible" << std::endl;
+                        std::cout << "num_int = " << "impossible" << std::endl;
+                        std::cout << "num_float = " << "impossible" << std::endl;
+                        std::cout << "num_double = " << Converter.d << std::endl;
+                        printed = true;
+                    }
+                    break;
+                }
+            break;
+        }
     }
-}
+}   
