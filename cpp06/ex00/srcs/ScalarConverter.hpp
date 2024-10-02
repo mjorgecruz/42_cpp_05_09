@@ -18,6 +18,15 @@
 #include <string>
 #include <cstdio>
 #include <iomanip>
+#include <limits>
+#include <cstdlib>
+
+enum type {
+    C,
+    I,
+    F,
+    D
+};
 
 class ScalarConverter
 {
