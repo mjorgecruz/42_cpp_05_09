@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:15:03 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/03 19:19:04 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:33:40 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -194,7 +194,7 @@ void convertChar(std::string str, converter Converter)
 void convertInt(std::string str, converter Converter)
 {
     Converter.i = strtol(str.c_str(), NULL, 10);
-    Converter.c = static_cast<char>(Converter.d);
+    Converter.c = static_cast<char>(Converter.i);
     Converter.f = static_cast<float>(Converter.i);
     Converter.d = static_cast<double>(Converter.i);
     if (errno == ERANGE || Converter.i > INT_MAX || Converter.i < INT_MIN)
