@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:35:31 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/02 15:51:16 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:56:58 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -18,14 +18,17 @@
 #include <string>
 #include <cstdio>
 #include <iomanip>
-#include <limits>
+#include <limits.h>
+#include <float.h>
 #include <cstdlib>
+#include <cerrno>
 
 enum type {
     C,
     I,
     F,
-    D
+    D,
+    N
 };
 
 class ScalarConverter
@@ -42,7 +45,7 @@ class ScalarConverter
 struct converter
 {
     char c;
-    int i;
+    long i;
     float f;
     double d;
 };
