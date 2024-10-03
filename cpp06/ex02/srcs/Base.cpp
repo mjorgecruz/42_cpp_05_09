@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   Base.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:57:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/29 17:57:23 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:52:19 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "Base.hpp"
 #include "A.hpp"
@@ -32,16 +32,19 @@ void identify(Base* p)
 {
     if (dynamic_cast<A*>(p))
     {
-            std::cout <<"type: A" << std::endl;
-            return;
+        p = dynamic_cast<A*>(p);
+        std::cout <<"type: A" << std::endl;
+        return;
     }
     else if (dynamic_cast<B*>(p))
     {
+        p = dynamic_cast<B*>(p);
         std::cout <<"type: B" << std::endl;
         return;
     }
-    else if(dynamic_cast<C*>(p))
+    else if(dynamic_cast<C*>(p) != 0 )
     {
+        p = dynamic_cast<C*>(p);
         std::cout <<"type: C" << std::endl;
         return;
     }
@@ -51,31 +54,30 @@ void identify(Base* p)
 
 void identify(Base& p)
 {
-    Base& bp = dynamic_cast<Base&>(p);
     try
     {
-        dynamic_cast <A&> (bp);
+        dynamic_cast <A&> (p);
         std::cout <<"type: A" << std::endl;
         return;
     }
-    catch (...)
+    catch (std::exception &e)
     {}
     try
     {
-        dynamic_cast <B&> (bp);
+        dynamic_cast <B&> (p);
         std::cout <<"type: B" << std::endl;
         return;
     }
-    catch (...)
+    catch (std::exception &e)
     {}
     try
     {
-        dynamic_cast <C&> (bp);
+        dynamic_cast <C&> (p);
         std::cout <<"type: C" << std::endl;
         return;
     }
-    catch (...)
+    catch (std::exception &e)
     {
         std::cout << "Error: no type defined" << std::endl;
-    }
+    } 
 }
