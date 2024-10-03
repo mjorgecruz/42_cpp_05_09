@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:35:31 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/03 11:56:58 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:12:58 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,7 +21,9 @@
 #include <limits.h>
 #include <float.h>
 #include <cstdlib>
+#include <cmath>
 #include <cerrno>
+#include "Convert.hpp"
 
 enum type {
     C,
@@ -42,12 +44,5 @@ class ScalarConverter
         static void convert(std::string src);
 };
 
-struct converter
-{
-    char c;
-    long i;
-    float f;
-    double d;
-};
 
 #endif

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cpp06/ex00/convert",
-            "args": ["4.5"],
+            "args": ["nan"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

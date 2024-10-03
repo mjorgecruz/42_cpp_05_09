@@ -75,6 +75,7 @@
         "numbers": "cpp",
         "ranges": "cpp",
         "span": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "cerrno": "cpp"
     }
 }

@@ -15,7 +15,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 INCDIR:=srcs
 ODIR:=obj
 
-SRC := main.cpp ScalarConverter.cpp
+SRC := main.cpp ScalarConverter.cpp Convert.cpp 
 
 OBJ := $(patsubst %.cpp, $(ODIR)/%.o,$(SRC))
 
