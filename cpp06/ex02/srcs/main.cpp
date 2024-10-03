@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:04:39 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 11:03:29 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:56:08 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -24,6 +24,7 @@ int main ( void )
     identify(lala);
     std::cout<< std::endl;
     identify(*lala);
+    delete(lala);
 }
 
 /*The reason you need to call srand(time(NULL)); before using rand() is to seed the random number generator with a unique starting point

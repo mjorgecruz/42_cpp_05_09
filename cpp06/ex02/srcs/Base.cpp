@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:57:23 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/03 18:52:19 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:57:40 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,19 +32,16 @@ void identify(Base* p)
 {
     if (dynamic_cast<A*>(p))
     {
-        p = dynamic_cast<A*>(p);
         std::cout <<"type: A" << std::endl;
         return;
     }
     else if (dynamic_cast<B*>(p))
     {
-        p = dynamic_cast<B*>(p);
         std::cout <<"type: B" << std::endl;
         return;
     }
     else if(dynamic_cast<C*>(p) != 0 )
     {
-        p = dynamic_cast<C*>(p);
         std::cout <<"type: C" << std::endl;
         return;
     }
@@ -56,7 +53,7 @@ void identify(Base& p)
 {
     try
     {
-        dynamic_cast <A&> (p);
+        p = dynamic_cast <A&> (p);
         std::cout <<"type: A" << std::endl;
         return;
     }
@@ -64,7 +61,7 @@ void identify(Base& p)
     {}
     try
     {
-        dynamic_cast <B&> (p);
+        p = dynamic_cast <B&> (p);
         std::cout <<"type: B" << std::endl;
         return;
     }
@@ -72,7 +69,7 @@ void identify(Base& p)
     {}
     try
     {
-        dynamic_cast <C&> (p);
+        p = dynamic_cast <C&> (p);
         std::cout <<"type: C" << std::endl;
         return;
     }

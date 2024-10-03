@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:13:41 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/03 17:32:37 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:02:02 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,9 +23,9 @@ struct converter
     double d;
 };
 
-int has_only_digits(std::string str);
-int has_one_f(std::string str);
-int has_one_point(std::string str);
+int hasOnlyDigits(std::string str);
+int hasOneF(std::string str);
+int hasOnePoint(std::string str);
 
 void convertDouble (std::string str, converter Converter);
 void convertFloat(std::string str, converter Converter);

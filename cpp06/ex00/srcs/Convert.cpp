@@ -6,13 +6,13 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:15:03 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/03 18:16:53 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:19:04 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "Convert.hpp"
 
-int has_only_digits(std::string str)
+int hasOnlyDigits(std::string str)
 {
 	int		i;
 
@@ -30,7 +30,7 @@ int has_only_digits(std::string str)
 	return (1);
 }
 
-int has_one_f(std::string str)
+int hasOneF(std::string str)
 {
     int		i;
 
@@ -55,7 +55,7 @@ int has_one_f(std::string str)
     return 1;
 }
 
-int has_one_point(std::string str)
+int hasOnePoint(std::string str)
 {
     int		i;
 
@@ -104,7 +104,7 @@ void convertDouble (std::string str, converter Converter)
     {
         if (Converter.d < 255.0 && Converter.d > 0)
         {
-            if (Converter.d <= 32 || Converter.d ==127)
+            if (Converter.d <= 32 || Converter.d >=127)
                 std::cout << "num_char = " << "Non displayable" << std::endl;
             else
                 std::cout << "num_char = " << Converter.c << std::endl;
@@ -153,7 +153,7 @@ void convertFloat(std::string str, converter Converter)
     {
         if (Converter.f <= 255.0 && Converter.f > 0 )
         {
-            if (Converter.d <= 32 || Converter.d ==127)
+            if (Converter.d <= 32 || Converter.d >= 127)
                 std::cout << "num_char = " << "Non displayable" << std::endl;
             else
                 std::cout << "num_char = " << Converter.c << std::endl;
@@ -193,7 +193,7 @@ void convertChar(std::string str, converter Converter)
 
 void convertInt(std::string str, converter Converter)
 {
-    Converter.i = strtol(str.c_str(), NULL, 16);
+    Converter.i = strtol(str.c_str(), NULL, 10);
     Converter.c = static_cast<char>(Converter.d);
     Converter.f = static_cast<float>(Converter.i);
     Converter.d = static_cast<double>(Converter.i);
@@ -208,7 +208,7 @@ void convertInt(std::string str, converter Converter)
     {
         if (Converter.i <= 255.0 && Converter.i >= 0)
         {
-            if (Converter.i <= 32 || Converter.i == 127)
+            if (Converter.i <= 32 || Converter.i >= 127)
                 std::cout << "num_char = " << "Non displayable" << std::endl;
             else
                 std::cout << "num_char = " << Converter.c << std::endl;
@@ -228,7 +228,7 @@ void convertInt(std::string str, converter Converter)
 
 void printDouble(double db)
 {
-    if (db - std::floor(db) < 1e-7)
+    if (db - std::floor(db) < 1e-7 && std::floor(db) < 1e5 && std::floor(db) > -1e5)
         std::cout << "num_double = " << db << ".0" << std::endl;
     else
         std::cout << "num_double = " << db << std::endl;
@@ -236,7 +236,7 @@ void printDouble(double db)
 
 void printFloat(float fl)
 {
-    if (fl - std::floor(fl) < 1e-7)
+    if (fl - std::floor(fl) < 1e-7 && std::floor(fl) < 1e5 && std::floor(fl) > -1e5)
         std::cout << "num_float = " << fl << ".0f" << std::endl;
     else
         std::cout << "num_float = " << fl << "f" << std::endl;
@@ -250,15 +250,15 @@ int check_type( std::string src)
         type = F;
     else if (src == "-inf" || src == "inf" ||src == "+inf" || src == "nan")
         type = D;
-    else if (has_only_digits(src))
+    else if (hasOnlyDigits(src))
         type = I;
     else if (src.size() == 1)
         type = C;
     else
     {
-        if (has_one_f(src))
+        if (hasOneF(src))
             type = F;
-        else if (has_one_point(src))
+        else if (hasOnePoint(src))
             type = D;
         else
             type = N;
