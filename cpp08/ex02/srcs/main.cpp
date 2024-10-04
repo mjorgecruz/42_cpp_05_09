@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 16:39:13 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:15:38 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,11 +17,7 @@ int main(void)
     Span values(10000);
     
     srand(time(NULL));
-    std::vector<int> arr;
-    for (int i = 0; i < 1000; i++)
-    {
-        arr.push_back(rand());
-    }
+    
     try
     {
         values.shortestSpan();

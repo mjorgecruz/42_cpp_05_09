@@ -6,9 +6,13 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 09:48:49 by masoares          #+#    #+#             */
-/*   Updated: 2024/09/30 10:48:45 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:50:49 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
+
+#pragma once
+#ifndef ITER_HPP
+# define ITER_HPP
 
 #include <iostream>
 
@@ -24,3 +28,5 @@ template <typename T> void iter(T arr[], int size)
         swap(arr[i], arr[size - 1 - i]);
     }
 }
+
+#endif

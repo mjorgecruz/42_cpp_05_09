@@ -1,18 +1,18 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Span.hpp                                           :+:      :+:    :+:   */
+/*   MutantStack.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:57:07 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 16:48:53 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:56:38 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #pragma once
-#ifndef SPAN_HPP
-# define SPAN_HPP
+#ifndef EASYFIND_HPP
+# define EASYFIND_HPP
 
 #include <vector>
 #include <algorithm>
@@ -21,28 +21,21 @@
 #include <ctime>
 #include <iostream>
 
-class Span
+template <typename T> 
+class MutantStack:
 {
     private:
         std::vector <int> _arr;
         unsigned int _size;
         
-        Span();
-        Span(Span &src);
-        Span &operator= (Span &src);
+        MutantStack();
+        MutantStack(MutantStack &src);
+        MutantStack &operator= (MutantStack &src);
         
     public:
-        ~Span();
-        Span(unsigned int N);
-        unsigned int size();
-        void addNumber(int number);
-        int shortestSpan( void );
-        int longestSpan( void );
-        unsigned int vectorSize( void );
+        ~MutantStack();
+        static iterator
 
-        int& operator [](unsigned int i);
-        void addRange(std::vector<int> arr);
-        
         
         class TooManyElementsException : public std::exception
         {

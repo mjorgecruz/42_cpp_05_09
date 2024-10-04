@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 16:16:06 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:46:48 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -58,11 +58,12 @@ void Span::addNumber(int number)
                 return;
             }
             it++;
-        }
+        }       
     }
     else
         throw Span::TooManyElementsException();
 }
+
 int Span::shortestSpan( void )
 {
     long shortest = INT_MAX;
@@ -71,6 +72,7 @@ int Span::shortestSpan( void )
     if (_arr.size() < 2)
         throw Span::NotEnoughNumbersException();
     std::vector<int>::iterator it = _arr.begin();
+    std::sort(_arr.begin(), _arr.end());
     while (it != _arr.end())
     {
         if (shortest >= abs(*it - last))
@@ -86,8 +88,16 @@ int Span::longestSpan( void )
     int longest;
     if (_arr.size() < 2)
         throw Span::NotEnoughNumbersException();
+    std::sort(_arr.begin(), _arr.end());
     longest = abs(*(_arr.end()) - *(_arr.begin()));
     return longest;
+}
+
+void Span::addRange(std::vector<int> arr)
+{
+    if (this->vectorSize() + arr.size() > this->size())
+        throw(Span::TooManyElementsException());
+    _arr.insert(_arr.end(), arr.begin(), arr.end());
 }
 
 const char * Span::TooManyElementsException::what() const throw()
