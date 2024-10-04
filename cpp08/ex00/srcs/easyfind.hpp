@@ -1,36 +1,35 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   whatever.hpp                                       :+:      :+:    :+:   */
+/*   easyfind.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 09:48:49 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 10:22:04 by masoares         ###   ########.fr       */
+/*   Created: 2024/09/30 10:57:07 by masoares          #+#    #+#             */
+/*   Updated: 2024/10/04 11:03:17 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
+#pragma once
+#ifndef EASYFIND_HPP
+# define EASYFIND_HPP
+
 #include <iostream>
+#include <vector>
+#include <list>
+#include <deque>
 
-template <typename T> void swap(T& x, T& y)
-{
-    T z = x;
-    x = y;
-    y = z;
-}
+template <typename T> unsigned int easyfind (T src, int x);
 
-template <typename T> T min(T x, T y)
+class OwnException : std::exception
 {
-    if (x < y)
-        return (x);
-    else
-        return (y);
-}
+    public:
+        class NotFoundException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();
+        };
+};
 
-template <typename T> T max(T x, T y)
-{
-    if (x > y)
-        return (x);
-    else
-        return (y);
-}
+#include "easyfind.tpp"
+#endif
