@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:57:07 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 12:12:01 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:57:06 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,36 +15,44 @@
 # define EASYFIND_HPP
 
 #include <vector>
+#include <algorithm>
+#include <limits.h>
+#include <cmath>
+#include <ctime>
+#include <iostream>
 
 class Span
 {
     private:
         std::vector <int> _arr;
-        int _size;
+        unsigned int _size;
         
         Span();
-        ~Span();
         Span(Span &src);
         Span &operator= (Span &src);
         
     public:
-        Span(int N);
-        int size();
+        ~Span();
+        Span(unsigned int N);
+        unsigned int size();
         void addNumber(int number);
         int shortestSpan( void );
         int longestSpan( void );
+        unsigned int vectorSize( void );
 
-        Span& operator [](int i);
+        int& operator [](unsigned int i);
         
         
-        class TooManyElementsException : std::exception
+        class TooManyElementsException : public std::exception
         {
-            const char * what() const throw();
+            public:
+                const char * what() const throw();
         };
         
-        class NotEnoughNumbersException : std::exception
+        class NotEnoughNumbersException : public std::exception
         {
-            const char * what() const throw();
+            public:
+                const char * what() const throw();
         };
 };
 

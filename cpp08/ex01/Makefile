@@ -8,14 +8,14 @@ BOLD_GREEN = \033[1;32m
 BOLD_YELLOW = \033[1;33m
 END = \033[0m
 
-NAME = 	easyfind
+NAME = 	span
 
 CFLAGS = -Wall -Werror -Wextra -g
 
 INCDIR:=srcs
 ODIR:=obj
 
-SRC := main.cpp 
+SRC := main.cpp Span.cpp
 
 OBJ := $(patsubst %.cpp, $(ODIR)/%.o,$(SRC))
 

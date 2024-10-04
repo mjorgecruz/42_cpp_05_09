@@ -6,32 +6,53 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 11:14:32 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:15:38 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "easyfind.hpp"
+#include "Span.hpp"
 
 int main(void)
 {
-    std::vector <int> v;
-    v.push_back(4);
-    v.push_back(3);
-    v.push_back(2);
-    v.push_back(1);
-    std::deque <int> dq;
-    dq.push_back(4);
-    dq.push_back(3);
-    dq.push_back(2);
-    dq.push_back(1);    
-    std::list <int> ls;
-    ls.push_back(4);
-    ls.push_back(3);
-    ls.push_back(2);
-    ls.push_back(1);
+    Span values(10000);
+    
+    srand(time(NULL));
+    
     try
     {
-        std::cout << ::easyfind(v, 2) << std::endl;
+        values.shortestSpan();
+        std::cout << values.shortestSpan()<< std::endl;
+        std::cout << values.longestSpan() << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    for (int i = 0; i < 5000; i++)
+    {
+        values.addNumber(rand());
+    }
+    try
+    {
+        std::cout << values[4000] << std::endl;
+        std::cout << values.size() << std::endl;
+        std::cout << values.vectorSize() << std::endl;
+        std::cout << values[6000] << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    for (int i = 0; i < 5000; i++)
+    {
+        values.addNumber(rand());
+    }
+    try
+    {
+        std::cout << values[9000] << std::endl;
+        std::cout << values.size() << std::endl;
+        std::cout << values.vectorSize() << std::endl;
+        std::cout << values[10000] << std::endl;
     }
     catch (std::exception &e)
     {
@@ -39,7 +60,7 @@ int main(void)
     }
     try
     {
-        std::cout << ::easyfind(dq, 1) << std::endl;
+        values.addNumber(rand());
     }
     catch (std::exception &e)
     {
@@ -47,7 +68,8 @@ int main(void)
     }
     try
     {
-        std::cout << ::easyfind(ls, 4) << std::endl;
+        std::cout << values.longestSpan()<< std::endl;
+        std::cout << values.shortestSpan()<< std::endl;
     }
     catch (std::exception &e)
     {
