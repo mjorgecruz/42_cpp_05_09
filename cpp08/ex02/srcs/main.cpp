@@ -10,69 +10,30 @@
 /*                                                                            */
 /******************************************************************************/
 
-#include "Span.hpp"
+#include "MutantStack.hpp"
 
 int main(void)
 {
-    Span values(10000);
-    
-    srand(time(NULL));
-    
-    try
+    MutantStack<int> mstack;
+    mstack.push(17);
+    mstack.push(5);
+    std::cout << mstack.top() << std::endl;
+    mstack.pop();
+    std::cout << mstack.size() << std::endl;
+    mstack.push(3);
+    mstack.push(5);
+    mstack.push(737);
+    //[...]
+    mstack.push(0);
+    MutantStack<int>::iterator it = mstack.begin();
+    MutantStack<int>::iterator ite = mstack.end();
+    ++it;
+    --it;
+    while (it != ite)
     {
-        values.shortestSpan();
-        std::cout << values.shortestSpan()<< std::endl;
-        std::cout << values.longestSpan() << std::endl;
+        std::cout << *it << std::endl;
+        ++it;
     }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-    for (int i = 0; i < 5000; i++)
-    {
-        values.addNumber(rand());
-    }
-    try
-    {
-        std::cout << values[4000] << std::endl;
-        std::cout << values.size() << std::endl;
-        std::cout << values.vectorSize() << std::endl;
-        std::cout << values[6000] << std::endl;
-    }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-    for (int i = 0; i < 5000; i++)
-    {
-        values.addNumber(rand());
-    }
-    try
-    {
-        std::cout << values[9000] << std::endl;
-        std::cout << values.size() << std::endl;
-        std::cout << values.vectorSize() << std::endl;
-        std::cout << values[10000] << std::endl;
-    }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-    try
-    {
-        values.addNumber(rand());
-    }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-    try
-    {
-        std::cout << values.longestSpan()<< std::endl;
-        std::cout << values.shortestSpan()<< std::endl;
-    }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
+    std::stack<int> s(mstack);   
+    return 0;
 }

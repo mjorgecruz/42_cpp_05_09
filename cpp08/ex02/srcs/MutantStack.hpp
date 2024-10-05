@@ -14,40 +14,54 @@
 #ifndef EASYFIND_HPP
 # define EASYFIND_HPP
 
-#include <vector>
+#include <stack>
 #include <algorithm>
 #include <limits.h>
 #include <cmath>
 #include <ctime>
 #include <iostream>
 
+
 template <typename T> 
-class MutantStack:
+class MutantStack: public std::stack<T>
 {
     private:
-        std::vector <int> _arr;
-        unsigned int _size;
-        
-        MutantStack();
-        MutantStack(MutantStack &src);
-        MutantStack &operator= (MutantStack &src);
-        
+        MutantStack<T> &operator= (MutantStack<T> &src);
     public:
+        MutantStack(MutantStack<T> &src);
+        MutantStack();
         ~MutantStack();
-        static iterator
+        T& at(unsigned int index);
 
-        
-        class TooManyElementsException : public std::exception
+        class Iterator
         {
+            private:
+                Iterator();
+                Iterator &operator= (Iterator &src);
             public:
-                const char * what() const throw();
+                Iterator( const Iterator &src);
+                ~Iterator();
+                Iterator(MutantStack<T>& stack, unsigned int initial_index );
+                Iterator(MutantStack<T>& stack); //for the .end function
+
+                T& operator*();
+                Iterator& operator++();
+                Iterator& operator--();
+                bool operator==(MutantStack<T>::Iterator const & src);
+                bool operator!=(MutantStack<T>::Iterator const & src);
+                
+            private:
+                MutantStack<T>& stack;
+                unsigned int index;
+                bool is_valid;
         };
-        
-        class NotEnoughNumbersException : public std::exception
-        {
-            public:
-                const char * what() const throw();
-        };
+        Iterator begin();
+        Iterator end();
+
+        typedef typename MutantStack<T>::Iterator iterator;
+
 };
+
+#include "MutantStack.tpp"
 
 #endif
