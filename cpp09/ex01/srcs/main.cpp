@@ -14,7 +14,6 @@
 
 int main(int ac, char **av)
 {
-    int result;
     if (ac != 2)
     {
         std::cerr << "Error" << std::endl;
@@ -23,9 +22,5 @@ int main(int ac, char **av)
     RPN calculator;
     if (RPN::parser(av[1]) == -1)
         return 0;
-    calculator.add_to_queue(av[1]);
-    result = calculator.calculate();
-    if (result == -1)
-        return 0;
-    std::cout << result << std::endl;
+    calculator.add_to_deque(av[1]);
 }

@@ -15,7 +15,7 @@
 # define RPN_HPP
 
 #include <iostream>
-#include <queue>
+#include <deque>
 #include <algorithm>
 #include <string>
 #include <sstream>
@@ -29,12 +29,13 @@ class RPN
         RPN &operator=(RPN &src);
 
         static int parser(std::string line);
-        void add_to_queue(std::string line);
-        int calculate ( void );
+        void add_to_deque(std::string line);
+        int calculate ( int result );
         static int switcher (int value, int placeholder, char signal);
 
     private:
-        std::queue<char> data;
+        std::deque<int> numbers;
+        std::deque<int> signals;
 
 };
 
