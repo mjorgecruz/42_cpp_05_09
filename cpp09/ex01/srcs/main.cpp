@@ -22,5 +22,5 @@ int main(int ac, char **av)
     RPN calculator;
     if (RPN::parser(av[1]) == -1)
         return 0;
-    calculator.add_to_deque(av[1]);
+    calculator.add_to_queue(av[1]);
 }

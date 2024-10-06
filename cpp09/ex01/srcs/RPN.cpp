@@ -52,17 +52,15 @@ int RPN::parser( std::string line )
     return 1;
 }
 
-void RPN::add_to_deque (std::string line)
+void RPN::add_to_queue (std::string line)
 {
     std::string partial_line;
     std::stringstream X(line);
     int value;
     char signal;
-    //int placeholder;
     int result = 0;
 
     getline(X, partial_line, ' ');
-    std::cout << partial_line << std::endl;
     value = partial_line[0] - '0';
     if (value < 0 || value > 9)
     {
@@ -75,21 +73,26 @@ void RPN::add_to_deque (std::string line)
     {
         value = partial_line[0] - '0';
         signal = partial_line[0];
-        if (signals.empty() && (value > 0 && value < 9))
+        if (signals.empty() && (value >= 0 && value <= 9))
         {
-            this->numbers.push_back(value);
-            std::cout << value << std::endl;
+            this->numbers.push(value);
         }
-        else if (signal == '+' && signal == '-' && signal == '*' && signal == '/' && signals.size() < numbers.size())
+        else if ((signal == '+' || signal == '-' || signal == '*' || signal == '/') && signals.size() < numbers.size())
         {
-            this->signals.push_back(partial_line[0]);
-            std::cout << partial_line[0] << std::endl;
+            this->signals.push(partial_line[0]);
         }
         else if (!signals.empty() && (value >= 0 && value <= 9))
         {
-            std::cout << std::endl;
-            result = this->calculate(result);
-            this->numbers.push_back(value);
+            try 
+            {
+                result = this->calculate(result);
+            }
+            catch( std::exception &e)
+            {
+                std::cerr << e.what() << std::endl;
+                return;
+            }
+            this->numbers.push(value);
         }
         else
         {
@@ -97,23 +100,37 @@ void RPN::add_to_deque (std::string line)
             return; 
         }
     }
-    std::cout << result << std::endl;
+    try 
+    {
+        result = this->calculate(result);
+        std::cout << result << std::endl;
+    }
+    catch( std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+        return;
+    }
 }
 
 int  RPN::calculate ( int result )
 {
     int value = (this->numbers.front());
-    this->numbers.pop_front();
+    this->numbers.pop();
     
     while (!numbers.empty())
     {
-        value = RPN::switcher(value, numbers.front(), signals.back());
-        this->numbers.pop_front();
-        this->signals.pop_back();
+        if (signals.empty())
+            throw RPN::UnbalanceNumbersSymbolsException();
+        value = RPN::switcher(value, numbers.front(), signals.front());
+        this->numbers.pop();
+        this->signals.pop();
     }
-    result = RPN::switcher(result, value, signals.back());
-    this->signals.pop_back();
-
+    result = RPN::switcher(result, value, signals.front());
+    this->signals.pop();
+    if (!signals.empty())
+    {
+        throw RPN::UnbalanceNumbersSymbolsException();
+    }
     return result;
 }
 
@@ -139,43 +156,7 @@ int RPN::switcher(int value, int placeholder, char signal)
 
 }
 
-/*while(getline(X, partial_line, ' '))
-        {
-            std::cout << partial_line << std::endl;
-            value = partial_line[0] - '0';
-            if (value < 0 || value > 9)
-            {
-                this->signals.push_back(partial_line[0]);
-                break;
-            }
-            this->numbers.push_back(value);
-        }
-        if (errno = EOF)
-        {
-            std::cerr << "Error" << std::endl;
-            break;
-        }
-        while(getline(X, partial_line, ' '))
-        {
-            signal = partial_line[0];
-            if (signal != '+' && signal != '-' && signal != '*' && signal != '/')
-            {
-                placeholder = partial_line[0] - '0';
-                break;
-            }
-            this->signals.push_back(signal);
-            if (signals.size() > numbers.size())
-            {
-                std::cerr << "Error" << std::endl;
-                return; 
-            }
-        }
-        if (signals.size() != numbers.size())
-        {
-            std::cerr << "Error" << std::endl;
-            return; 
-        }
-        result = this->calculate(result);
-        if (errno = EOF)
-            break;
-        this->numbers.push_back(placeholder);*/
+const char * RPN::UnbalanceNumbersSymbolsException::what() const throw()
+{
+    return ("Error");
+}
