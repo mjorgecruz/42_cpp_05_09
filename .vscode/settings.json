@@ -76,7 +76,11 @@
         "ranges": "cpp",
         "span": "cpp",
         "sstream": "cpp",
-        "cerrno": "cpp"
+        "cerrno": "cpp",
+        "stack": "cpp",
+        "map": "cpp",
+        "xtree": "cpp",
+        "queue": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
