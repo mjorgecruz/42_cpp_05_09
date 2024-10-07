@@ -28,9 +28,11 @@ class PmergeMe
         PmergeMe();
         ~PmergeMe();
         std::vector<int> vector_sort(int ac,char **av);
-        void merge_sort_vector(unsigned int right, unsigned int left);
-        void merge_vector(unsigned int left, unsigned int mid, unsigned int right);
-        static bool compare (int const a[2], int const b[2]);
+        void merge_sort_vector_pairs(unsigned int right, unsigned int left);
+        void merge_vector_pairs(unsigned int left, unsigned int mid, unsigned int right);
+        void merge_sort_vector(std::vector<int> sorted, std::vector<int *> left);
+        void merge_vector(std::vector<int> left_sorted, std::vector<int> right_sorted, std::vector<int> sorted);
+
 
         std::set<int> set_sort(char **av);
 
