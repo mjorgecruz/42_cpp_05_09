@@ -27,59 +27,50 @@ PmergeMe & PmergeMe::operator=(PmergeMe &src)
     return *this;
 }
 
-std::vector<int> PmergeMe::vector_sort(char **av)
+std::vector<int> PmergeMe::vector_sort(int ac, char **av)
 {
-    int minimum = INT_MAX;
     int a;
     int b;
     int i = 1;
-    //task 1: put bigger nums in a vector
+    int x[ac][2];
+    //task 1: put bigger nums in a vector and insert-sort
     while(av[i])
     {
+
         if (!av[i + 1])
             break;
         a = atoi(av[i]);
         b = atoi(av[i + 1]);
-        if (a > b)
+        if (a < b)
         {
-            sortedV.push_back(a);
-            if (b < minimum)
-            {
-                if (minimum < INT_MAX)
-                    unsortedV.push_back(minimum);
-                minimum = b;
-            }
-            else
-                unsortedV.push_back(b);
+            x[i][0] = a;
+            x[i][1] = b;
         }
         else
         {
-            sortedV.push_back(b);
-            if (a < minimum)
-            {
-                if (minimum < INT_MAX)
-                    unsortedV.push_back(minimum);
-                minimum = a;
-            }
-            else
-                unsortedV.push_back(a);
+            x[i][0] = b;
+            x[i][1] = a;
         }
+        std::vector<int *>::iterator it = std::lower_bound(unsortedV.begin(), unsortedV.end(), x[i], PmergeMe::compare);
+        if (it == unsortedV.end())
+            unsortedV.push_back(x[i]);
+        else
+            unsortedV.insert(it, x[i]);
         i+=2;
     }
     if (av[i])
-    {
         sortedV.push_back(atoi(av[i]));
-    }
 
     //task 2: merge sort sortedV
-    merge_sort_vector(0, sortedV.size() - 1);
-    sortedV.insert(sortedV.begin(), minimum);
-
+    //merge_sort_vector(0, sortedV.size() - 1);
     //task3: insertion sort
     for (unsigned int i = 0; i < unsortedV.size(); i++)
     {
-        sortedV.insert(std::lower_bound(sortedV.begin(), sortedV.end(), unsortedV[i]), unsortedV[i]);
-        i++;
+        sortedV.insert(std::lower_bound(sortedV.begin(), sortedV.end(), unsortedV[i][0]), unsortedV[i][0]);
+    }
+    for (unsigned int i = 0; i < unsortedV.size(); i++)
+    {
+        sortedV.insert(std::lower_bound(sortedV.begin(), sortedV.end(), unsortedV[i][1]), unsortedV[i][1]);
     }
 
     for (unsigned int i = 0; i < sortedV.size(); i++)
@@ -147,3 +138,5 @@ void PmergeMe::merge_vector(unsigned int left, unsigned int mid, unsigned int ri
         k++;
     }
 }
+
+bool PmergeMe::compare(int const a[2], int const b[2]){ return a[0] < b[0];}
