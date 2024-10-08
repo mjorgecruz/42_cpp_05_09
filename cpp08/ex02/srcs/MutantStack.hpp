@@ -6,13 +6,13 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:57:07 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 16:56:38 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:35:41 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #pragma once
-#ifndef EASYFIND_HPP
-# define EASYFIND_HPP
+#ifndef MUTANTSTACK_HPP
+# define MUTANTSTACK_HPP
 
 #include <stack>
 #include <algorithm>

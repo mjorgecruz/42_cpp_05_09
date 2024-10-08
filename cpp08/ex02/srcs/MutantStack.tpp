@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/07 11:15:46 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:11:51 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -18,7 +18,9 @@ template < typename T > MutantStack<T>::~MutantStack()
 {} 
 
 template < typename T > MutantStack<T>::MutantStack(MutantStack<T> &src) : std::stack<T>(src)
-{}
+{
+    
+}
 
 template < typename T > MutantStack<T> & MutantStack<T>::operator= (MutantStack<T> &src)
 {

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 09:48:49 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 16:50:49 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/08 09:56:35 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -16,17 +16,15 @@
 
 #include <iostream>
 
-template <typename T> void iter(T arr[], int size, void (*func)(T arr[], int))
+template <typename T, typename F > void iter(T arr[], int size, F function)
 {
-    func(arr, size);
+    for (int i = 0; i < size; i++)
+        function(arr[i]);
 }
 
-template <typename T> void iter(T arr[], int size)
+template <typename T> void swaping(T &value)
 {
-    for (int i = 0; i < size / 2; i++)
-    {
-        swap(arr[i], arr[size - 1 - i]);
-    }
+    value--;
 }
 
 #endif
