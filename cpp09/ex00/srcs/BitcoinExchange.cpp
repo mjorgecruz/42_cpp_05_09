@@ -1,12 +1,12 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.tpp                                       :+:      :+:    :+:   */
+/*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 11:12:20 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:21:18 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -57,7 +57,7 @@ void   BitcoinExchange::dataParser(std::string doc)
                 continue;
             getline(X, partial, ',');
             rate = strtof(partial.c_str(), NULL);
-            this->data.insert(std::pair<time_t, float>(date, rate));
+            this->data[date] = rate;
         }
     }
     
