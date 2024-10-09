@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 11:14:32 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 08:59:02 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -48,6 +48,14 @@ int main(void)
     try
     {
         std::cout << ::easyfind(ls, 4) << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    try
+    {
+        std::cout << ::easyfind(ls, 5) << std::endl;
     }
     catch (std::exception &e)
     {

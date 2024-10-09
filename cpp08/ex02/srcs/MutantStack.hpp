@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:57:07 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/08 15:35:41 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:35:54 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,11 +15,44 @@
 # define MUTANTSTACK_HPP
 
 #include <stack>
+#include <list>
 #include <algorithm>
 #include <limits.h>
 #include <cmath>
 #include <ctime>
 #include <iostream>
+
+/*
+template <typename T>
+class MutantStack : public std::stack<T> {
+public:
+    typedef typename std::stack<T>::container_type::iterator iterator;
+    typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+    typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+    typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
+
+    // Return the iterator to the beginning of the stack
+    iterator begin() { return this->c.begin(); }
+    // Return the iterator to the end of the stack
+    iterator end() { return this->c.end(); }
+
+    // Return the iterator to the beginning of the stack
+    const_iterator cbegin() { return this->c.begin(); }
+    // Return the iterator to the end of the stack
+    const_iterator cend() { return this->c.end(); }
+
+    // Return the iterator to the beginning of the stack
+    reverse_iterator rbegin() { return this->c.rbegin(); }
+    // Return the iterator to the end of the stack
+    reverse_iterator rend() { return this->c.rend(); }
+
+    // Return the iterator to the beginning of the stack
+    const_reverse_iterator crbegin() { return this->c.rbegin(); }
+    // Return the iterator to the end of the stack
+    const_reverse_iterator crend() { return this->c.rend(); }
+};
+
+*/
 
 
 template <typename T> 
@@ -59,34 +92,6 @@ class MutantStack: public std::stack<T>
         };
         Iterator begin();
         Iterator end();
-
-        class ConstIterator
-        {
-            private:
-                ConstIterator();
-                ConstIterator &operator= (ConstIterator &src);
-            public:
-                ConstIterator( const ConstIterator &src);
-                ~ConstIterator();
-                ConstIterator(const MutantStack<T>& stack, unsigned int initial_index );
-                ConstIterator(const MutantStack<T>& stack); //for the .end function
-
-                const T& operator*() const;
-                ConstIterator& operator++();
-                ConstIterator& operator--();
-                ConstIterator& operator++( int );
-                ConstIterator& operator-- ( int );
-                bool operator==( const MutantStack<T>::ConstIterator& src) const;
-                bool operator!=( const MutantStack<T>::ConstIterator & src) const;
-                
-            private:
-                MutantStack<T> const & stack;
-                unsigned int index;
-                bool is_valid;
-        };
-        ConstIterator begin() const;
-        ConstIterator end() const;
-
         class RIterator
         {
             private:
@@ -114,39 +119,8 @@ class MutantStack: public std::stack<T>
         RIterator rbegin();
         RIterator rend();
 
-        class ConstRIterator
-        {
-            private:
-                ConstRIterator();
-                ConstRIterator &operator= (ConstRIterator &src);
-            public:
-                ConstRIterator( const ConstRIterator &src);
-                ~ConstRIterator();
-                ConstRIterator(const MutantStack<T>& stack, unsigned int initial_index );
-                ConstRIterator(const MutantStack<T>& stack); //for the .end function
-
-                const T& operator*() const;
-                ConstRIterator& operator++();
-                ConstRIterator& operator--();
-                ConstRIterator& operator++( int );
-                ConstRIterator& operator-- ( int );
-                bool operator==( const MutantStack<T>::ConstRIterator& src) const;
-                bool operator!=( const MutantStack<T>::ConstRIterator & src) const;
-                
-            private:
-                MutantStack<T> const & stack;
-                unsigned int index;
-                bool is_valid;
-        };
-        ConstRIterator rbegin() const;
-        ConstRIterator rend() const;
-
-
-
         typedef typename MutantStack<T>::Iterator iterator;
-        typedef typename MutantStack<T>::ConstIterator const_iterator;
         typedef typename MutantStack<T>::RIterator reverse_iterator;
-        typedef typename MutantStack<T>::ConstRIterator const_reverse_iterator;
 
 };
 

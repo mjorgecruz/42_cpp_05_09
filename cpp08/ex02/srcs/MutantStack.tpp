@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/08 15:11:51 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:34:24 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -41,44 +41,19 @@ template < typename T >  typename MutantStack<T>::Iterator MutantStack<T>::end()
 
 }
 
-template < typename T >  typename MutantStack<T>::ConstIterator MutantStack<T>::begin() const
-{
-    ConstIterator result = ConstIterator(*this, 0);
-    return result;
-}
-
-template < typename T >  typename MutantStack<T>::ConstIterator MutantStack<T>::end() const
-{
-    ConstIterator result = ConstIterator(*this);
-    return result;
-
-}
-
 template < typename T >  typename MutantStack<T>::RIterator MutantStack<T>::rbegin()
 {
-    ConstIterator result = Iterator(*this, this->size() - 1);
+    RIterator result = RIterator(*this, this->size() - 1);
     return result;
 }
 
 template < typename T >  typename MutantStack<T>::RIterator MutantStack<T>::rend()
 {
-    ConstIterator result = Iterator(*this);
+    RIterator result = RIterator(*this);
     return result;
 
 }
 
-template < typename T >  typename MutantStack<T>::ConstRIterator MutantStack<T>::rbegin() const
-{
-    ConstIterator result = ConstIterator(*this, this->size() - 1);
-    return result;
-}
-
-template < typename T >  typename MutantStack<T>::ConstRIterator MutantStack<T>::rend() const
-{
-    ConstIterator result = ConstIterator(*this);
-    return result;
-
-}
 
 template < typename T > T&  MutantStack<T>::at(unsigned int index)
 {
@@ -206,90 +181,7 @@ public:
 
 //ConstIterator
 
-template <typename T> MutantStack<T>::ConstIterator::ConstIterator(const ConstIterator& src)
-    : stack(src.stack), index(src.index) {}
 
-template < typename T > MutantStack<T>::ConstIterator::ConstIterator(const MutantStack& stack, unsigned int initial_index ):
-stack(stack), index(initial_index), is_valid(true)
-{
-    if (initial_index >= stack.size())
-        is_valid = false;
-}
-
-template < typename T > MutantStack<T>::ConstIterator::ConstIterator(const MutantStack& stack):
-stack(stack), index(0), is_valid(false)
-{}
-
-template < typename T > MutantStack<T>::ConstIterator::~ConstIterator()
-{}
-
-template < typename T > typename MutantStack<T>::ConstIterator& MutantStack<T>::ConstIterator::operator=(ConstIterator &src)
-{
-    index = src.index;
-    is_valid = src.is_valid;
-    return(*this);
-}
-
-template < typename T > const T& MutantStack<T>::ConstIterator::operator*() const
-{
-    if (!this->is_valid)
-        throw std::out_of_range("Dereferencing Invalid ConstIterator");
-    return stack.at(index);
-}
-
-template < typename T >  typename MutantStack<T>::ConstIterator& MutantStack<T>::ConstIterator::operator++()
-{
-    if (!this->is_valid)
-        return *this;
-    ++index;
-    if (index >= stack.size())
-        is_valid = false;
-    return *this;
-}
-
-template < typename T >  typename MutantStack<T>::ConstIterator& MutantStack<T>::ConstIterator::operator--() 
-{
-    if (!this->is_valid)
-        return *this;
-    --index;
-    if (index >= stack.size())
-        is_valid = false;
-    return *this;
-}
-
-template < typename T >  typename MutantStack<T>::ConstIterator& MutantStack<T>::ConstIterator::operator++( int )
-{
-    if (!this->is_valid)
-        return *this;
-    MutantStack<T>::ConstIterator& temp = *this;
-    ++index;
-    if (index >= stack.size())
-        is_valid = false;
-    return temp;
-}
-
-template < typename T >  typename MutantStack<T>::ConstIterator& MutantStack<T>::ConstIterator::operator--( int )
-{
-    if (!this->is_valid)
-        return *this;
-    MutantStack<T>::ConstIterator& temp = *this;
-    --index;
-    if (index >= stack.size())
-        is_valid = false;
-    return temp;
-}
-
-template < typename T >  bool MutantStack<T>::ConstIterator::operator==(MutantStack<T>::ConstIterator const & src) const
-{
-    if ((this->is_valid == true && src.is_valid == true && this->stack == src.stack && this->index == src.index ) || (src.is_valid == false && this->is_valid == false))
-        return true;
-    return false;
-}
-
-template < typename T >  bool MutantStack<T>::ConstIterator::operator!=(const MutantStack<T>::ConstIterator & src) const
-{
-    return !(*this == src);
-}
 
 /*In C++, member functions can be marked as const by appending the const keyword at the end of the function signature.
  This indicates that the function does not modify the internal state of the object and can be called on const instances of the class.
@@ -403,87 +295,3 @@ template < typename T >  bool MutantStack<T>::RIterator::operator!=(MutantStack<
 
 //ConstRIterator
 
-template <typename T> MutantStack<T>::ConstRIterator::ConstRIterator(const ConstRIterator& src)
-    : stack(src.stack), index(src.index) {}
-
-template < typename T > MutantStack<T>::ConstRIterator::ConstRIterator(const MutantStack& stack, unsigned int initial_index ):
-stack(stack), index(initial_index), is_valid(true)
-{
-    if (initial_index >= stack.size())
-        is_valid = false;
-}
-
-template < typename T > MutantStack<T>::ConstRIterator::ConstRIterator(const MutantStack& stack):
-stack(stack), index(0), is_valid(false)
-{}
-
-template < typename T > MutantStack<T>::ConstRIterator::~ConstRIterator()
-{}
-
-template < typename T > typename MutantStack<T>::ConstRIterator& MutantStack<T>::ConstRIterator::operator=(ConstRIterator &src)
-{
-    index = src.index;
-    is_valid = src.is_valid;
-    return(*this);
-}
-
-template < typename T > const T& MutantStack<T>::ConstRIterator::operator*() const
-{
-    if (!this->is_valid)
-        throw std::out_of_range("Dereferencing Invalid ConstRIterator");
-    return stack.at(index);
-}
-
-template < typename T >  typename MutantStack<T>::ConstRIterator& MutantStack<T>::ConstRIterator::operator++()
-{
-    if (!this->is_valid)
-        return *this;
-    --index;
-    if (index >= stack.size())
-        is_valid = false;
-    return *this;
-}
-
-template < typename T >  typename MutantStack<T>::ConstRIterator& MutantStack<T>::ConstRIterator::operator--() 
-{
-    if (!this->is_valid)
-        return *this;
-    ++index;
-    if (index >= stack.size())
-        is_valid = false;
-    return *this;
-}
-
-template < typename T >  typename MutantStack<T>::ConstRIterator& MutantStack<T>::ConstRIterator::operator++( int )
-{
-    if (!this->is_valid)
-        return *this;
-    MutantStack<T>::ConstRIterator& temp = *this;
-    --index;
-    if (index >= stack.size())
-        is_valid = false;
-    return temp;
-}
-
-template < typename T >  typename MutantStack<T>::ConstRIterator& MutantStack<T>::ConstRIterator::operator--( int )
-{
-    if (!this->is_valid)
-        return *this;
-    MutantStack<T>::ConstRIterator& temp = *this;
-    ++index;
-    if (index >= stack.size())
-        is_valid = false;
-    return temp;
-}
-
-template < typename T >  bool MutantStack<T>::ConstRIterator::operator==(MutantStack<T>::ConstRIterator const & src) const
-{
-    if ((this->is_valid == true && src.is_valid == true && this->stack == src.stack && this->index == src.index ) || (src.is_valid == false && this->is_valid == false))
-        return true;
-    return false;
-}
-
-template < typename T >  bool MutantStack<T>::ConstRIterator::operator!=(const MutantStack<T>::ConstRIterator & src) const
-{
-    return !(*this == src);
-}
