@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:57:07 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 13:39:11 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:47:16 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,16 +21,6 @@
 #include <algorithm>
 
 template <typename T> unsigned int easyfind (T src, int x);
-
-class OwnException : std::exception
-{
-    public:
-        class NotFoundException : public std::exception
-        {
-            public:
-                virtual const char* what() const throw();
-        };
-};
 
 #include "easyfind.tpp"
 #endif

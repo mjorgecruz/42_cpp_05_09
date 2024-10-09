@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/09 08:59:02 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:42:44 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,7 +31,7 @@ int main(void)
     ls.push_back(1);
     try
     {
-        std::cout << ::easyfind(v, 2) << std::endl;
+        std::cout << easyfind(v, 2) << std::endl;
     }
     catch (std::exception &e)
     {
@@ -39,7 +39,7 @@ int main(void)
     }
     try
     {
-        std::cout << ::easyfind(dq, 1) << std::endl;
+        std::cout << easyfind(dq, 1) << std::endl;
     }
     catch (std::exception &e)
     {
@@ -47,7 +47,7 @@ int main(void)
     }
     try
     {
-        std::cout << ::easyfind(ls, 4) << std::endl;
+        std::cout << easyfind(ls, 4) << std::endl;
     }
     catch (std::exception &e)
     {
@@ -55,7 +55,7 @@ int main(void)
     }
     try
     {
-        std::cout << ::easyfind(ls, 5) << std::endl;
+        std::cout << easyfind(ls, 5) << std::endl;
     }
     catch (std::exception &e)
     {
