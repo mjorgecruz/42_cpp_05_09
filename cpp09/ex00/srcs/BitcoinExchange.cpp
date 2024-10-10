@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/09 15:21:18 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:49:01 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -97,6 +97,11 @@ void BitcoinExchange::textParser(std::string doc)
                 std::map<time_t, float>::iterator it = data.lower_bound(date);
                 /*The function returns an iterator pointing to the key in the map container which is equivalent to k passed in the parameter.
                  In case k is not present in the map container, the function returns an iterator pointing to the immediate next element which is just greater than k.*/
+                if (it == data.begin())
+                {
+                    std::cerr << "Error: data not available." << std::endl;
+                    continue;
+                }
                 it--;
                 std::cout << partial_date << "=> " << value << " = " << it->second * value << std::endl;
             }

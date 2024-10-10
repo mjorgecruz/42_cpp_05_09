@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 02:55:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/06 02:55:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/10 15:52:49 by masoares         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #pragma once
 #ifndef RPN_HPP
@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <queue>
+#include <stack>
 #include <algorithm>
 #include <string>
 #include <sstream>
@@ -30,7 +31,7 @@ class RPN
 
         static int parser(std::string line);
         void add_to_queue(std::string line);
-        int calculate ( int result );
+        int calculate ( char signal );
         static int switcher (int value, int placeholder, char signal);
 
         class UnbalanceNumbersSymbolsException : public std::exception
@@ -39,9 +40,7 @@ class RPN
         };
 
     private:
-        std::queue<int> numbers;
-        std::queue<char> signals;
-
+        std::stack<int> numbers;
 };
 
 

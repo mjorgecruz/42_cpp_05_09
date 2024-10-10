@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 02:55:32 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/08 14:59:22 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:09:43 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,13 +19,11 @@ RPN::~RPN(){}
 RPN::RPN(RPN &src)
 {
     numbers = src.numbers;
-    signals = src.signals;
 }
 
 RPN & RPN::operator=(RPN &src)
 {
     numbers = src.numbers;
-    signals = src.signals;
     return *this;
 }
 
@@ -37,13 +35,13 @@ int RPN::parser( std::string line )
     while (getline(X, partial_line, ' '))
     {
         //check for brackets and any other symbol
-        if (partial_line[0] != '+' && partial_line[0] != '-' && partial_line[0] != '*' && partial_line[0] != '/' && partial_line[0] < '0' &&  partial_line[0] < '9')
+        if (partial_line[0] != '+' && partial_line[0] != '-' && partial_line[0] != '*' && partial_line[0] != '/' && partial_line[0] < '0' &&  partial_line[0] > '9')
         {
             std::cerr << "Error" << std::endl;
             return -1;
         }
         //check for decimals
-        if (partial_line.size() > 1)
+        if (partial_line.find(".") != std::string::npos || partial_line.find(",") != std::string::npos )
         {
             std::cerr << "Error" << std::endl;
             return -1;
@@ -56,81 +54,44 @@ void RPN::add_to_queue (std::string line)
 {
     std::string partial_line;
     std::stringstream X(line);
+    std::stack<int> temp;
     int value;
     char signal;
     int result = 0;
 
-    getline(X, partial_line, ' ');
-    value = partial_line[0] - '0';
-    if (value < 0 || value > 9)
-    {
-        std::cerr << "Error" << std::endl;
-        return; 
-    }
-    result = value;
-
     while (getline(X, partial_line, ' '))
     {
-        value = partial_line[0] - '0';
+        value = atoi(partial_line.c_str());
         signal = partial_line[0];
-        if (signals.empty() && (value >= 0 && value <= 9))
+        if (value == 0 && partial_line.size() == 1 &&(signal == '+' || signal == '-' || signal == '*' || signal == '/'))
         {
-            this->numbers.push(value);
+            if (numbers.size() < 2)
+                throw RPN::UnbalanceNumbersSymbolsException();
+            result = this->calculate( signal );
+            numbers.push(result);
         }
-        else if ((signal == '+' || signal == '-' || signal == '*' || signal == '/') && signals.size() < numbers.size())
-        {
-            this->signals.push(partial_line[0]);
-        }
-        else if (!signals.empty() && (value >= 0 && value <= 9))
-        {
-            try 
-            {
-                result = this->calculate(result);
-            }
-            catch( std::exception &e)
-            {
-                std::cerr << e.what() << std::endl;
-                return;
-            }
-            this->numbers.push(value);
-        }
+        else if ((value >= -9 && value <= 9))
+            numbers.push(value);
         else
         {
             std::cerr << "Error" << std::endl;
             return; 
         }
     }
-    try 
-    {
-        result = this->calculate(result);
-        std::cout << result << std::endl;
-    }
-    catch( std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-        return;
-    }
+    if (numbers.size() > 1)
+        throw RPN::UnbalanceNumbersSymbolsException();
+    std::cout << numbers.top() << std::endl;
 }
 
-int  RPN::calculate ( int result )
+int  RPN::calculate ( char signal )
 {
-    int value = (this->numbers.front());
+    int result = 0;
+    int value1 = numbers.top();
     this->numbers.pop();
-    
-    while (!numbers.empty())
-    {
-        if (signals.empty())
-            throw RPN::UnbalanceNumbersSymbolsException();
-        value = RPN::switcher(value, numbers.front(), signals.front());
-        this->numbers.pop();
-        this->signals.pop();
-    }
-    result = RPN::switcher(result, value, signals.front());
-    this->signals.pop();
-    if (!signals.empty())
-    {
-        throw RPN::UnbalanceNumbersSymbolsException();
-    }
+    int value2 = numbers.top();
+    this->numbers.pop();
+
+    result = RPN::switcher(value2, value1, signal);
     return result;
 }
 
