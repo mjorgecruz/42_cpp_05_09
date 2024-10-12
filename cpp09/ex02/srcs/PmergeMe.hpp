@@ -15,37 +15,43 @@
 # define PMERGEME_HPP
 
 #include <iostream>
-#include <set>
+#include <deque>
 #include <vector>
 #include <algorithm>
 #include <climits>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 
 class PmergeMe
 {   
     public:
         PmergeMe();
         ~PmergeMe();
+
         std::vector<int> vector_sort(int ac,char **av);
         void merge_sort_vector_pairs(unsigned int right, unsigned int left);
         void merge_vector_pairs(unsigned int left, unsigned int mid, unsigned int right);
-        void merge_sort_vector(std::vector<int> &sorted, std::vector<int *> left);
-        void merge_vector(std::vector<int> left_sorted, std::vector<int> right_sorted, std::vector<int> &sorted);
+        void galloping_merge_vector(std::vector<int>& sortedV, int element);
+
+        std::deque<int> set_sort(int ac, char **av);
+        void merge_sort_set_pairs(unsigned int right, unsigned int left);
+        void merge_set_pairs(unsigned int left, unsigned int mid, unsigned int right);
+        void galloping_merge_set(std::deque<int>& sortedS, int element);
 
 
-        std::set<int> set_sort(char **av);
 
     private:
-        std::vector<int *> unsortedV;
         std::vector<int> sortedV;
-        std::set<int> unsortedS;
-        std::set<int> sortedS;
+        std::deque<int> sortedS;
+        std::vector<int *> unsortedV;
+        std::deque<int *> unsortedS;
 
         PmergeMe(PmergeMe &src);
         PmergeMe &operator=(PmergeMe &src);
 
 };
+
 
 
 #endif

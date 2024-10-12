@@ -55,129 +55,251 @@ std::vector<int> PmergeMe::vector_sort(int ac, char **av)
         unsortedV.push_back(x[i]);
         i+=2;
     }
-    merge_sort_vector(sortedV, unsortedV);
-
+    merge_sort_vector_pairs(0, unsortedV.size() - 1);
+    for (unsigned int i = 0; i < unsortedV.size(); i++)
+    {
+        sortedV.push_back(unsortedV[i][1]);
+        galloping_merge_vector(sortedV, unsortedV[i][0]);
+    }
     if (av[i])
         sortedV.insert(std::lower_bound(sortedV.begin(), sortedV.end(), atoi(av[i])), atoi(av[i]));
-
-    for (unsigned int i = 0; i < sortedV.size(); i++)
-    {
-        std::cout << sortedV[i] << std::endl;
-    }
     return sortedV;
 }
 
-
-void PmergeMe::merge_sort_vector( std::vector<int> &sorted, std::vector<int *> left )
+void PmergeMe::galloping_merge_vector(std::vector<int>& sortedV, int element)
 {
-    if (left.size() == 0)
-        return;
-    if (left.size() == 1)
-    {
-        sorted.push_back(left[0][0]);
-        sorted.push_back(left[0][1]);
-        return;
+    int len = sortedV.size();
+    int i = 1;
+    while (i < len && sortedV[i] < element) {
+        i *= 2;
     }
-
-    std::vector<int> left_sorted;
-    std::vector<int> right_sorted;
-    std::vector<int *> left_pairs( left.begin(), left.begin() + left.size()/2);
-    std::vector<int *> right_pairs( left.begin() + left.size()/2, left.end());
-
-    merge_sort_vector(left_sorted, left_pairs);
-    merge_sort_vector(right_sorted, right_pairs);
-    merge_vector(left_sorted, right_sorted, sorted);
+    int left = i / 2;
+    int right = std::min(i, len);
+    sortedV.insert(std::lower_bound(sortedV.begin() + left, sortedV.begin() + right, element), element);
 }
 
-void PmergeMe::merge_vector(std::vector<int> left_sorted, std::vector<int> right_sorted, std::vector<int> &sorted)
+void PmergeMe::merge_sort_vector_pairs( unsigned int left, unsigned int right)
 {
-  
-    unsigned int i = 0;
-    unsigned int j = 0;
+    if (left >= right)
+        return;
 
-    while (i < left_sorted.size() && j < right_sorted.size())
+    unsigned int mid = left + (right - left) / 2;
+    merge_sort_vector_pairs( left, mid );
+    merge_sort_vector_pairs( mid + 1, right);
+    merge_vector_pairs(left, mid, right);
+}
+
+void PmergeMe::merge_vector_pairs(unsigned int left, unsigned int mid, unsigned int right)
+{
+    int space1 = mid - left + 1;
+    int space2 = right - mid;
+
+    std::vector<int *> L(space1);
+    std::vector<int *> R(space2);
+
+    for (int i = 0; i < space1; i++)
     {
-        if (left_sorted[i] <= right_sorted[j])
+        L[i] = unsortedV[left + i];
+    }
+    for (int i = 0; i < space2; i++)
+    {
+        R[i] = unsortedV[mid + 1 + i];
+    }   
+
+    int i = 0;
+    int j = 0;
+    int k = left;
+    while (i < space1 && j < space2)
+    {
+        if (L[i][1] <= R[j][1])
         {
-            sorted.push_back(left_sorted[i]);
+            unsortedV[k] = L[i];
             i++;
         }
         else
         {
-            sorted.push_back(right_sorted[j]);
+            unsortedV[k] = R[j];
             j++;
         }
+        k++;
     }
-    while (i < left_sorted.size())
+    while (i < space1)
     {
-        sorted.push_back(left_sorted[i]);
+        unsortedV[k] = L[i];
         i++;
+        k++;
     }
-    while (j < right_sorted.size())
+    while (j < space2)
     {
-        sorted.push_back(right_sorted[j]);
+        unsortedV[k] = R[j];
         j++;
+        k++;
     }
 }
 
-// void PmergeMe::merge_sort_vector_pairs( unsigned int left, unsigned int right)
-// {
-//     if (left >= right)
-//         return;
 
-//     unsigned int mid = left + (right - left) / 2;
-//     merge_sort_vector_pairs( left, mid );
-//     merge_sort_vector_pairs( mid + 1, right);
-//     merge_vector_pairs(left, mid, right);
+
+std::deque<int> PmergeMe::set_sort(int ac, char **av)
+{
+    int a;
+    int b;
+    unsigned int i = 1;
+    int x[ac][2];
+
+    //task 1: put bigger nums in a vector and add to vector
+    while(av[i])
+    {
+
+        if (!av[i + 1])
+            break;
+        a = atoi(av[i]);
+        b = atoi(av[i + 1]);
+        if (a < b)
+        {
+            x[i][0] = a;
+            x[i][1] = b;
+        }
+        else
+        {
+            x[i][0] = b;
+            x[i][1] = a;
+        }
+        unsortedS.push_back(x[i]);
+        i+=2;
+    }
+    merge_sort_set_pairs(0, unsortedS.size() - 1);
+    for (unsigned int i = 0; i < unsortedS.size(); i++)
+    {
+        sortedS.push_back(unsortedS[i][1]);
+        galloping_merge_set(sortedS, unsortedS[i][0]);
+    }
+    if (av[i])
+        sortedS.insert(std::lower_bound(sortedS.begin(), sortedS.end(), atoi(av[i])), atoi(av[i]));
+    return sortedS;
+}
+
+void PmergeMe::galloping_merge_set(std::deque<int>& sortedS, int element)
+{
+    int len = sortedS.size();
+    int i = 1;
+    while (i < len && sortedV[i] < element) {
+        i *= 2;
+    }
+    int left = i / 2;
+    int right = std::min(i, len);
+    sortedS.insert(std::lower_bound(sortedS.begin() + left, sortedS.begin() + right, element), element);
+}
+
+void PmergeMe::merge_sort_set_pairs( unsigned int left, unsigned int right)
+{
+    if (left >= right)
+        return;
+
+    unsigned int mid = left + (right - left) / 2;
+    merge_sort_set_pairs( left, mid );
+    merge_sort_set_pairs( mid + 1, right);
+    merge_set_pairs(left, mid, right);
+}
+
+void PmergeMe::merge_set_pairs(unsigned int left, unsigned int mid, unsigned int right)
+{
+    int space1 = mid - left + 1;
+    int space2 = right - mid;
+
+    std::deque<int *> L(space1);
+    std::deque<int *> R(space2);
+
+    for (int i = 0; i < space1; i++)
+    {
+        L[i] = unsortedS[left + i];
+    }
+    for (int i = 0; i < space2; i++)
+    {
+        R[i] = unsortedS[mid + 1 + i];
+    }   
+
+    int i = 0;
+    int j = 0;
+    int k = left;
+    while (i < space1 && j < space2)
+    {
+        if (L[i][1] <= R[j][1])
+        {
+            unsortedS[k] = L[i];
+            i++;
+        }
+        else
+        {
+            unsortedS[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < space1)
+    {
+        unsortedS[k] = L[i];
+        i++;
+        k++;
+    }
+    while (j < space2)
+    {
+        unsortedS[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+// void PmergeMe::merge_sort_vector( std::vector<int> &sorted, std::vector<int *> left, int pos)
+// {
+
+//     if (left.size() == 0)
+//         return;
+//     if (left.size() == 1)
+//     {
+//         sorted.insert(sorted.begin(), left[0][0]);
+//         return;
+//     }
+//     std::vector<int> left_sorted;
+//     std::vector<int> right_sorted;
+//     std::vector<int *> left_pairs( left.begin(), left.begin() + left.size()/2);
+//     std::vector<int *> right_pairs( left.begin() + left.size()/2, left.end());
+
+//     merge_sort_vector(left_sorted, left_pairs);
+//     merge_sort_vector(right_sorted, right_pairs);
+//     merge_vector(left_sorted, right_sorted, sorted);
 // }
 
-// void PmergeMe::merge_vector_pairs(unsigned int left, unsigned int mid, unsigned int right)
+// void PmergeMe::merge_vector(std::vector<int> left_sorted, std::vector<int> right_sorted, std::vector<int> &sorted)
 // {
-//     int space1 = mid - left + 1;
-//     int space2 = right - mid;
+  
+//     unsigned int i = 0;
+//     unsigned int j = 0;
 
-//     std::vector<int *> L(space1);
-//     std::vector<int *> R(space2);
-
-//     for (int i = 0; i < space1; i++)
+//     while (i < left_sorted.size() && j < right_sorted.size())
 //     {
-//         L[i] = unsortedV[left + i];
-//     }
-//     for (int i = 0; i < space2; i++)
-//     {
-//         R[i] = unsortedV[mid + 1 + i];
-//     }   
-
-//     int i = 0;
-//     int j = 0;
-//     int k = left;
-//     while (i < space1 && j < space2)
-//     {
-//         if (L[i][1] <= R[j][1])
+//         if (left_sorted[i] <= right_sorted[j])
 //         {
-//             unsortedV[k] = L[i];
+//             sorted.push_back(left_sorted[i]);
 //             i++;
 //         }
 //         else
 //         {
-//             unsortedV[k] = R[j];
+//             sorted.push_back(right_sorted[j]);
 //             j++;
 //         }
-//         k++;
 //     }
-//     while (i < space1)
+//     while (i < left_sorted.size())
 //     {
-//         unsortedV[k] = L[i];
+//         sorted.push_back(left_sorted[i]);
 //         i++;
-//         k++;
 //     }
-//     while (j < space2)
+//     while (j < right_sorted.size())
 //     {
-//         unsortedV[k] = R[j];
+//         sorted.push_back(right_sorted[j]);
 //         j++;
-//         k++;
 //     }
 // }
+
 
     // task 2: merge sort the pairs based on the bigger element
     //merge_sort_vector_pairs(0, unsortedV.size() - 1);
