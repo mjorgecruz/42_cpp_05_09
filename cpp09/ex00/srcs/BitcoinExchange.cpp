@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/10 10:49:01 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:18:36 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -77,7 +77,7 @@ void BitcoinExchange::textParser(std::string doc)
     {
         while(getline(file, line))
         {
-            if (line.find("date") != std::string::npos)
+            if (line.find("date") != std::string::npos ||  line.empty())
                 continue;
 
             //getting date in int format
@@ -88,7 +88,9 @@ void BitcoinExchange::textParser(std::string doc)
                 continue;
             getline(X, partial_value, '|');
             value = strtof(partial_value.c_str(), NULL);
-            if (value < 0)
+            if (value == 0 && partial_value != "0" && partial_value != "+0" && partial_value != "-0")
+                std::cerr << "Error: not a number." << std::endl;
+            else if (value < 0)
                 std::cerr << "Error: not a positive number." << std::endl;
             else if (value > 1000.0)
                 std::cerr << "Error: too large a number." << std::endl;
@@ -103,9 +105,15 @@ void BitcoinExchange::textParser(std::string doc)
                     continue;
                 }
                 it--;
+                partial_date.erase(std::remove_if(partial_date.begin(), partial_date.end(), isspace), partial_date.end());
                 std::cout << partial_date << "=> " << value << " = " << it->second * value << std::endl;
             }
         }
+    }
+    else
+    {
+        std::cerr << "Error: could not open file" << std::endl;
+        return;
     }
 }
 

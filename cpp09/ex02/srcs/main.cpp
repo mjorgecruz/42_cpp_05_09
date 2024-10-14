@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/07 11:48:55 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:10:45 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,6 +19,11 @@ int main(int ac, char **av)
     std::vector<int> lala;
     std::deque<int> lolo;
     std::vector<int> numbers;
+    if (ac == 1)
+    {
+        std::cerr << "Error" << std::endl;
+        return -1;
+    }
     for (int i = 1; i < ac; i++)
     {
         for(int j = 0; av[i][j]; j++)
@@ -29,6 +34,14 @@ int main(int ac, char **av)
                 return -1;
             }
         }
+    }
+    if (ac == 2)
+    {
+        std::cout << "Before " << av[1] << std::endl;
+        std::cout << "After  " << av[1] << std::endl;
+        std::cout << "Time to process a range of " << ac - 1 << " elements with std::vector :" << std::fixed << std::setprecision(5) << 0.00000 << " us" << std::endl;
+        std::cout << "Time to process a range of " << ac - 1 << " elements with std::deque  :" << std::fixed << std::setprecision(5) << 0.00000 << " us" << std::endl;
+        return 0;
     }
     for (int i = 1; i < ac; i++)
     {
@@ -50,33 +63,27 @@ int main(int ac, char **av)
     }
 
     clock_t start, end;
-    for (int i = 1; i < ac; i++)
-        std::cout << av[i] << " " ;
-
-
     std::cout << "Before ";
     for (int i = 1; i < ac; i++)
           std::cout << av[i] << " " ;
     std::cout << std::endl;
-    std::cout << "After ";
+    std::cout << "After  ";
 
     start = clock();
     lala = test.vector_sort(ac, av);
     end =  clock();
-    double time_taken = double(end - start);
-    std::cout << std::endl;
+    float time_taken = end - start;
     for (unsigned int i = 0; i < lala.size(); i++)
     {
         std::cout << lala[i] << " ";
     }
     std::cout << std::endl;
-    std::cout << "Time to process a range of " << ac - 1 << " elements with std::vector :" << time_taken << " us" << std::endl;
+    std::cout << "Time to process a range of " << ac - 1 << " elements with std::vector :" << std::fixed << std::setprecision(5) << time_taken << " us" << std::endl;
     
     start = clock();
     lolo = test.set_sort(ac, av);
     end = clock(); 
-    std::cout << std::endl;
-    time_taken = double(end - start);
-    std::cout << "Time to process a range of " << ac - 1 << " elements with std::deque :" << time_taken << " us" << std::endl;
+    time_taken = end - start;
+    std::cout << "Time to process a range of " << ac - 1 << " elements with std::deque :" << std::fixed << std::setprecision(5) << time_taken << " us" << std::endl;
 
 }

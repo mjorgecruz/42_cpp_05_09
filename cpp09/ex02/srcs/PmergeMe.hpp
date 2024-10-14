@@ -22,6 +22,7 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <iomanip>
 
 class PmergeMe
 {   
@@ -33,11 +34,14 @@ class PmergeMe
         void merge_sort_vector_pairs(unsigned int right, unsigned int left);
         void merge_vector_pairs(unsigned int left, unsigned int mid, unsigned int right);
         void galloping_merge_vector(std::vector<int>& sortedV, int element);
+        std::vector<int>::iterator lower_bound_vector(std::vector<int>::iterator begin, std::vector<int>::iterator end, int element);
 
         std::deque<int> set_sort(int ac, char **av);
         void merge_sort_set_pairs(unsigned int right, unsigned int left);
         void merge_set_pairs(unsigned int left, unsigned int mid, unsigned int right);
         void galloping_merge_set(std::deque<int>& sortedS, int element);
+        std::deque<int>::iterator lower_bound_deque(std::deque<int>::iterator begin, std::deque<int>::iterator end, int element);
+
 
 
 
@@ -52,6 +56,19 @@ class PmergeMe
 
 };
 
+// template <typename T>
+// class  PmergeMe
+// {
+//     private:
+//         T sorted;
+//         T unsorted;
+    
+//     public:
+//         T set_sort(int ac, char **av);
+//         void merge_sort_set_pairs(unsigned int right, unsigned int left);
+//         void merge_set_pairs(unsigned int left, unsigned int mid, unsigned int right);
+//         void galloping_merge_set(T& sortedS, int element);
 
+// };
 
 #endif

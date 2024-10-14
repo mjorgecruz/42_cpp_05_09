@@ -62,7 +62,7 @@ std::vector<int> PmergeMe::vector_sort(int ac, char **av)
         galloping_merge_vector(sortedV, unsortedV[i][0]);
     }
     if (av[i])
-        sortedV.insert(std::lower_bound(sortedV.begin(), sortedV.end(), atoi(av[i])), atoi(av[i]));
+        sortedV.insert(lower_bound_vector(sortedV.begin(), sortedV.end(), atoi(av[i])), atoi(av[i]));
     return sortedV;
 }
 
@@ -75,7 +75,7 @@ void PmergeMe::galloping_merge_vector(std::vector<int>& sortedV, int element)
     }
     int left = i / 2;
     int right = std::min(i, len);
-    sortedV.insert(std::lower_bound(sortedV.begin() + left, sortedV.begin() + right, element), element);
+    sortedV.insert(lower_bound_vector(sortedV.begin() + left, sortedV.begin() + right, element), element);
 }
 
 void PmergeMe::merge_sort_vector_pairs( unsigned int left, unsigned int right)
@@ -137,7 +137,19 @@ void PmergeMe::merge_vector_pairs(unsigned int left, unsigned int mid, unsigned 
     }
 }
 
-
+std::vector<int>::iterator PmergeMe::lower_bound_vector(std::vector<int>::iterator begin, std::vector<int>::iterator end, int element)
+{
+    if (begin >= end)
+        return begin;
+    std::vector<int>::iterator it = begin + (end - begin) / 2;
+    if (element == *it)
+        return it;
+    else if (element > *it)
+        it = lower_bound_vector(it + 1, end, element);
+    else
+        it = lower_bound_vector(it, begin, element);
+    return it;
+}
 
 std::deque<int> PmergeMe::set_sort(int ac, char **av)
 {
@@ -174,7 +186,7 @@ std::deque<int> PmergeMe::set_sort(int ac, char **av)
         galloping_merge_set(sortedS, unsortedS[i][0]);
     }
     if (av[i])
-        sortedS.insert(std::lower_bound(sortedS.begin(), sortedS.end(), atoi(av[i])), atoi(av[i]));
+        sortedS.insert(lower_bound_deque(sortedS.begin(), sortedS.end(), atoi(av[i])), atoi(av[i]));
     return sortedS;
 }
 
@@ -182,12 +194,16 @@ void PmergeMe::galloping_merge_set(std::deque<int>& sortedS, int element)
 {
     int len = sortedS.size();
     int i = 1;
-    while (i < len && sortedV[i] < element) {
-        i *= 2;
+    int prev = 0;
+    int temp = 0;
+    while (i < len && sortedS[i] < element) {
+        temp = i;
+        i = i + 2 * prev;
+        prev = temp;
     }
     int left = i / 2;
     int right = std::min(i, len);
-    sortedS.insert(std::lower_bound(sortedS.begin() + left, sortedS.begin() + right, element), element);
+    sortedS.insert(lower_bound_deque(sortedS.begin() + left, sortedS.begin() + right, element), element);
 }
 
 void PmergeMe::merge_sort_set_pairs( unsigned int left, unsigned int right)
@@ -247,6 +263,20 @@ void PmergeMe::merge_set_pairs(unsigned int left, unsigned int mid, unsigned int
         j++;
         k++;
     }
+}
+
+std::deque<int>::iterator  PmergeMe::lower_bound_deque(std::deque<int>::iterator begin, std::deque<int>::iterator end, int element)
+{
+    if (begin >= end)
+        return begin;
+    std::deque<int>::iterator it = begin + (end - begin) / 2;
+    if (element == *it)
+        return it;
+    else if (element > *it)
+        it = lower_bound_deque(it + 1, end, element);
+    else
+        it = lower_bound_deque(it, begin, element);
+    return it;
 }
 
 // void PmergeMe::merge_sort_vector( std::vector<int> &sorted, std::vector<int *> left, int pos)

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/10 16:06:36 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:07:47 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -20,6 +20,11 @@ int main(int ac, char **av)
         return 0;
     }
     RPN calculator;
+    if (av[1][0] == 0)
+    {
+        std::cerr << "Error" << std::endl;
+        return 0;
+    }
     if (RPN::parser(av[1]) == -1)
         return 0;
     try{
