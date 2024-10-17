@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 02:55:32 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/17 12:14:43 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:49:33 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -65,11 +65,11 @@ void RPN::add_to_queue (std::string line)
 
     while (getline(X, partial_line, ' '))
     {
-        value = atoi(partial_line.c_str());
+        value = strtod(partial_line.c_str(), NULL);
         signal = partial_line[0];
         if (partial_line.size() == 0)
             continue;
-        if (value == 0 && partial_line.size() == 1 &&(signal == '+' || signal == '-' || signal == '*' || signal == '/'))
+        if (partial_line.size() == 1 &&(signal == '+' || signal == '-' || signal == '*' || signal == '/'))
         {
             if (numbers.size() < 2)
                 throw RPN::UnbalanceNumbersSymbolsException();
