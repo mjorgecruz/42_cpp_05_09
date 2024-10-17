@@ -33,6 +33,8 @@ std::vector<int> PmergeMe::vector_sort(int ac, char **av)
     int b;
     unsigned int i = 1;
     int x[ac][2];
+    int n = 0;
+    int inserted = 1;
 
     //task 1: put bigger nums in a vector and add to vector
     while(av[i])
@@ -59,22 +61,41 @@ std::vector<int> PmergeMe::vector_sort(int ac, char **av)
     for (unsigned int i = 0; i < unsortedV.size(); i++)
     {
         sortedV.push_back(unsortedV[i][1]);
-        galloping_merge_vector(sortedV, unsortedV[i][0]);
+    }
+    sortedV.insert(sortedV.begin(), unsortedV[0][0]);
+    for (unsigned int i = 1; i < unsortedV.size(); i++)
+    {
+        int temp = n;
+        n += jacobsthal(i) * 2 ;
+        if (n >= (int)unsortedV.size())
+            n = (int)unsortedV.size() - 1;
+        while (n > temp)
+        {
+            galloping_merge_vector(sortedV, unsortedV[n][0], n + inserted);
+            inserted++;
+            n--;
+        }
+        n += jacobsthal(i) * 2;
+        if (sortedV.size() == unsortedV.size() * 2)
+        {
+            break;
+        }
     }
     if (av[i])
         sortedV.insert(lower_bound_vector(sortedV.begin(), sortedV.end(), atoi(av[i])), atoi(av[i]));
     return sortedV;
 }
 
-void PmergeMe::galloping_merge_vector(std::vector<int>& sortedV, int element)
+void PmergeMe::galloping_merge_vector(std::vector<int>& sortedV, int element, int n)
 {
-    int len = sortedV.size();
     int i = 1;
-    while (i < len && sortedV[i] < element) {
-        i *= 2;
+    if (n >= (int)sortedV.size())
+        n =  (int)sortedV.size();
+    while (i < n && sortedV[i] < element) {
+        i++;
     }
-    int left = i / 2;
-    int right = std::min(i, len);
+    int left = 0;
+    int right = std::min(i, n);
     sortedV.insert(lower_bound_vector(sortedV.begin() + left, sortedV.begin() + right, element), element);
 }
 
@@ -157,6 +178,8 @@ std::deque<int> PmergeMe::set_sort(int ac, char **av)
     int b;
     unsigned int i = 1;
     int x[ac][2];
+    int n = 0;
+    int inserted = 1;
 
     //task 1: put bigger nums in a vector and add to vector
     while(av[i])
@@ -183,26 +206,41 @@ std::deque<int> PmergeMe::set_sort(int ac, char **av)
     for (unsigned int i = 0; i < unsortedS.size(); i++)
     {
         sortedS.push_back(unsortedS[i][1]);
-        galloping_merge_set(sortedS, unsortedS[i][0]);
+    }
+    sortedS.insert(sortedS.begin(), unsortedS[0][0]);
+    for (unsigned int i = 1; i < unsortedS.size(); i++)
+    {
+        int temp = n;
+        n += jacobsthal(i) * 2 ;
+        if (n >= (int)unsortedS.size())
+            n = (int)unsortedS.size() - 1;
+        while (n > temp)
+        {
+            galloping_merge_set(sortedS, unsortedS[n][0], n + inserted);
+            inserted++;
+            n--;
+        }
+        n += jacobsthal(i) * 2;
+        if (sortedS.size() == unsortedS.size() * 2)
+        {
+            break;
+        }
     }
     if (av[i])
         sortedS.insert(lower_bound_deque(sortedS.begin(), sortedS.end(), atoi(av[i])), atoi(av[i]));
     return sortedS;
 }
 
-void PmergeMe::galloping_merge_set(std::deque<int>& sortedS, int element)
+void PmergeMe::galloping_merge_set(std::deque<int>& sortedS, int element, int n)
 {
-    int len = sortedS.size();
     int i = 1;
-    int prev = 0;
-    int temp = 0;
-    while (i < len && sortedS[i] < element) {
-        temp = i;
-        i = i + 2 * prev;
-        prev = temp;
+    if (n >= (int)sortedV.size())
+        n =  (int)sortedV.size();
+    while (i < n && sortedS[i] < element) {
+        i++;
     }
     int left = i / 2;
-    int right = std::min(i, len);
+    int right = std::min(i, n);
     sortedS.insert(lower_bound_deque(sortedS.begin() + left, sortedS.begin() + right, element), element);
 }
 
@@ -277,6 +315,20 @@ std::deque<int>::iterator  PmergeMe::lower_bound_deque(std::deque<int>::iterator
     else
         it = lower_bound_deque(it, begin, element);
     return it;
+}
+
+unsigned int  PmergeMe::jacobsthal(unsigned int n)
+{
+    // base case
+    if (n == 0)
+        return 0;
+ 
+    // base case
+    if (n == 1)
+        return 1;
+ 
+    // recursive step.
+    return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
 }
 
 // void PmergeMe::merge_sort_vector( std::vector<int> &sorted, std::vector<int *> left, int pos)

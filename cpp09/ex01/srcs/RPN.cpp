@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 02:55:32 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/14 15:47:44 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:14:43 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,6 +34,8 @@ int RPN::parser( std::string line )
 
     while (getline(X, partial_line, ' '))
     {
+        if (partial_line.empty())
+            continue;
         //check for brackets and any other symbol
         if (partial_line[0] != '+' && partial_line[0] != '-' && partial_line[0] != '*' && partial_line[0] != '/' && (partial_line[0] < '0' ||  partial_line[0] > '9'))
         {
@@ -57,7 +59,7 @@ void RPN::add_to_queue (std::string line)
     std::stack<int> temp;
     int value;
     char signal;
-    int result = 0;
+    double result = 0;
     // int sig = 0;
     // int nums = 0;
 
@@ -85,24 +87,24 @@ void RPN::add_to_queue (std::string line)
             return; 
         }
     }
-    if (numbers.size() > 1)
+    if (numbers.size() != 1)
         throw RPN::UnbalanceNumbersSymbolsException();
     std::cout << numbers.top() << std::endl;
 }
 
-int  RPN::calculate ( char signal )
+double  RPN::calculate ( char signal )
 {
-    int result = 0;
-    int value1 = numbers.top();
+    double result = 0;
+    double value1 = numbers.top();
     this->numbers.pop();
-    int value2 = numbers.top();
+    double value2 = numbers.top();
     this->numbers.pop();
 
     result = RPN::switcher(value2, value1, signal);
     return result;
 }
 
-int RPN::switcher(int value, int placeholder, char signal)
+double RPN::switcher(double value, double placeholder, char signal)
 {
     switch(signal)
     {

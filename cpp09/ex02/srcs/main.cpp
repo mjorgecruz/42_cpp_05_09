@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/14 12:10:45 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:04:32 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,6 +34,12 @@ int main(int ac, char **av)
                 return -1;
             }
         }
+        if (((std::string)av[i]).empty())
+        {
+            std::cerr << "Error" << std::endl;
+            return -1;
+        }
+            
     }
     if (ac == 2)
     {

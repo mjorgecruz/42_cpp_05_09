@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 02:55:52 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/10 15:52:49 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:13:29 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,8 +31,8 @@ class RPN
 
         static int parser(std::string line);
         void add_to_queue(std::string line);
-        int calculate ( char signal );
-        static int switcher (int value, int placeholder, char signal);
+        double calculate ( char signal );
+        static double switcher (double value, double placeholder, char signal);
 
         class UnbalanceNumbersSymbolsException : public std::exception
         {
@@ -40,7 +40,7 @@ class RPN
         };
 
     private:
-        std::stack<int> numbers;
+        std::stack<double> numbers;
 };
 
 

@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/14 16:18:36 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:39:32 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -88,8 +88,8 @@ void BitcoinExchange::textParser(std::string doc)
                 continue;
             getline(X, partial_value, '|');
             value = strtof(partial_value.c_str(), NULL);
-            if (value == 0 && partial_value != "0" && partial_value != "+0" && partial_value != "-0")
-                std::cerr << "Error: not a number." << std::endl;
+            if (value == 0 && partial_value[0] != '0' && partial_value != "0" && partial_value != "+0" && partial_value != "-0")
+                std::cerr << "Error: bad input =>" << partial_value << std::endl;
             else if (value < 0)
                 std::cerr << "Error: not a positive number." << std::endl;
             else if (value > 1000.0)
@@ -104,7 +104,8 @@ void BitcoinExchange::textParser(std::string doc)
                     std::cerr << "Error: data not available." << std::endl;
                     continue;
                 }
-                it--;
+                if (it->first != date)
+                    it--;
                 partial_date.erase(std::remove_if(partial_date.begin(), partial_date.end(), isspace), partial_date.end());
                 std::cout << partial_date << "=> " << value << " = " << it->second * value << std::endl;
             }
@@ -122,6 +123,7 @@ time_t BitcoinExchange::parseDateTime(const char* datetimeString)
 {
     struct tm tmStruct;
     int year;
+    tmStruct.tm_mday = 0;			/* Day.		[1-31] */		/* Month.	[0-11] */
     if (std::sscanf(datetimeString, "%d-%d-%d ", &year, &tmStruct.tm_mon, &tmStruct.tm_mday) != 3)
     {
         std::cerr << "Error: bad input =>" << datetimeString << std::endl;
@@ -132,6 +134,9 @@ time_t BitcoinExchange::parseDateTime(const char* datetimeString)
     tmStruct.tm_hour = 0;
     tmStruct.tm_min = 0;
     tmStruct.tm_sec = 0;
+    tmStruct.tm_wday = 0;
+    tmStruct.tm_yday = 0;
+    tmStruct.tm_isdst = 0;
 
     if(check_valid_date(tmStruct))
     {
