@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 16:15:38 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:41:38 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -25,8 +25,8 @@ int main(void)
     mstack.push(737);
     //[...]
     mstack.push(0);
-    MutantStack<int>::iterator it = mstack.begin();
-    MutantStack<int>::iterator ite = mstack.end();
+    MutantStack<int>::reverse_iterator it = mstack.rbegin();
+    MutantStack<int>::reverse_iterator ite = mstack.rend();
     ++it;
     --it;
     while (it != ite)
@@ -34,6 +34,29 @@ int main(void)
         std::cout << *it << std::endl;
         ++it;
     }
-    std::stack<int> s(mstack);   
+    std::stack<int> s(mstack);
+       
+    std::cout << std::endl;
+    std::list<int> mlist;
+    mlist.push_back(17);
+    mlist.push_back(5);
+    std::cout << mlist.back() << std::endl;
+    mlist.pop_back();
+    std::cout << mlist.size() << std::endl;
+    mlist.push_back(3);
+    mlist.push_back(5);
+    mlist.push_back(737);
+    //[...]
+    mlist.push_back(0);
+    std::list<int>::iterator it2 = mlist.begin();
+    std::list<int>::iterator ite2 = mlist.end();
+    ++it2;
+    --it2;
+    while (it2 != ite2)
+    {
+        std::cout << *it2 << std::endl;
+        ++it2;
+    }
+    std::list<int> p(mlist);   
     return 0;
 }

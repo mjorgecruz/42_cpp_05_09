@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 11:12:20 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:49:05 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,20 +15,13 @@
 
 template <typename T> unsigned int easyfind(T src, int x)
 {
-    typename T::iterator i = src.begin();
-    for (i = src.begin(); i != src.end(); ++i)
-        {
-            if (*i == x)
-            {
-                int position = std::distance( src.begin(), i);
-                return position;
-            }
+    typename T::iterator i = std::find(src.begin(), src.end(), x);
+    if (i != src.end())
+    {
+        int position = std::distance( src.begin(), i);
+        return position;
     }
-    throw (OwnException::NotFoundException());
+    throw (std::out_of_range("Number not found"));
 }
 
-const char * OwnException::NotFoundException::what() const throw()
-{
-    return("Int not found");
-};
 

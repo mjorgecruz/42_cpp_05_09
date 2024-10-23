@@ -1,12 +1,12 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.tpp                                       :+:      :+:    :+:   */
+/*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 11:12:20 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:39:32 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -57,7 +57,7 @@ void   BitcoinExchange::dataParser(std::string doc)
                 continue;
             getline(X, partial, ',');
             rate = strtof(partial.c_str(), NULL);
-            this->data.insert(std::pair<time_t, float>(date, rate));
+            this->data[date] = rate;
         }
     }
     
@@ -77,7 +77,7 @@ void BitcoinExchange::textParser(std::string doc)
     {
         while(getline(file, line))
         {
-            if (line.find("date") != std::string::npos)
+            if (line.find("date") != std::string::npos ||  line.empty())
                 continue;
 
             //getting date in int format
@@ -88,7 +88,9 @@ void BitcoinExchange::textParser(std::string doc)
                 continue;
             getline(X, partial_value, '|');
             value = strtof(partial_value.c_str(), NULL);
-            if (value < 0)
+            if (value == 0 && partial_value[0] != '0' && partial_value != "0" && partial_value != "+0" && partial_value != "-0")
+                std::cerr << "Error: bad input =>" << partial_value << std::endl;
+            else if (value < 0)
                 std::cerr << "Error: not a positive number." << std::endl;
             else if (value > 1000.0)
                 std::cerr << "Error: too large a number." << std::endl;
@@ -97,10 +99,22 @@ void BitcoinExchange::textParser(std::string doc)
                 std::map<time_t, float>::iterator it = data.lower_bound(date);
                 /*The function returns an iterator pointing to the key in the map container which is equivalent to k passed in the parameter.
                  In case k is not present in the map container, the function returns an iterator pointing to the immediate next element which is just greater than k.*/
-                it--;
+                if (it == data.begin())
+                {
+                    std::cerr << "Error: data not available." << std::endl;
+                    continue;
+                }
+                if (it->first != date)
+                    it--;
+                partial_date.erase(std::remove_if(partial_date.begin(), partial_date.end(), isspace), partial_date.end());
                 std::cout << partial_date << "=> " << value << " = " << it->second * value << std::endl;
             }
         }
+    }
+    else
+    {
+        std::cerr << "Error: could not open file" << std::endl;
+        return;
     }
 }
 
@@ -109,6 +123,7 @@ time_t BitcoinExchange::parseDateTime(const char* datetimeString)
 {
     struct tm tmStruct;
     int year;
+    tmStruct.tm_mday = 0;			/* Day.		[1-31] */		/* Month.	[0-11] */
     if (std::sscanf(datetimeString, "%d-%d-%d ", &year, &tmStruct.tm_mon, &tmStruct.tm_mday) != 3)
     {
         std::cerr << "Error: bad input =>" << datetimeString << std::endl;
@@ -119,6 +134,9 @@ time_t BitcoinExchange::parseDateTime(const char* datetimeString)
     tmStruct.tm_hour = 0;
     tmStruct.tm_min = 0;
     tmStruct.tm_sec = 0;
+    tmStruct.tm_wday = 0;
+    tmStruct.tm_yday = 0;
+    tmStruct.tm_isdst = 0;
 
     if(check_valid_date(tmStruct))
     {

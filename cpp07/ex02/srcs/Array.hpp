@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:57:07 by masoares          #+#    #+#             */
-/*   Updated: 2024/09/30 15:26:49 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:14:30 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,10 +31,11 @@ class Array
         Array(Array &src);
         Array &operator= (Array &src);
 
-        T& operator [](int i);
+        T& operator [](unsigned int i);
+        const T& operator [](unsigned int i) const;
         
         Array(unsigned int n);
-        unsigned int size ( void );
+        unsigned int size ( void ) const;
           
 };
 

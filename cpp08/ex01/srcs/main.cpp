@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 10:31:25 by masoares          #+#    #+#             */
-/*   Updated: 2024/10/04 16:39:13 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:20:38 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,6 +14,15 @@
 
 int main(void)
 {
+    Span sp = Span(5);
+    sp.addNumber(6);
+    sp.addNumber(3);
+    sp.addNumber(17);
+    sp.addNumber(9);
+    sp.addNumber(11);
+    std::cout << sp.shortestSpan() << std::endl;
+    std::cout << sp.longestSpan() << std::endl;
+
     Span values(10000);
     
     srand(time(NULL));
@@ -24,7 +33,7 @@ int main(void)
     }
     try
     {
-        values.shortestSpan();
+        values.addRange(arr);
         std::cout << values.shortestSpan()<< std::endl;
         std::cout << values.longestSpan() << std::endl;
     }
@@ -32,12 +41,12 @@ int main(void)
     {
         std::cout << e.what() << std::endl;
     }
-    for (int i = 0; i < 5000; i++)
-    {
-        values.addNumber(rand());
-    }
     try
     {
+        for (int i = 0; i < 5000; i++)
+        {
+            values.addNumber(rand());
+        }
         std::cout << values[4000] << std::endl;
         std::cout << values.size() << std::endl;
         std::cout << values.vectorSize() << std::endl;
@@ -47,12 +56,12 @@ int main(void)
     {
         std::cout << e.what() << std::endl;
     }
-    for (int i = 0; i < 5000; i++)
-    {
-        values.addNumber(rand());
-    }
     try
     {
+        for (int i = 0; i < 5000; i++)
+        {
+            values.addNumber(rand());
+        }
         std::cout << values[9000] << std::endl;
         std::cout << values.size() << std::endl;
         std::cout << values.vectorSize() << std::endl;

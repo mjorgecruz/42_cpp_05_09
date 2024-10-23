@@ -6,7 +6,7 @@
 /*   By: masoares <masoares@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:41:55 by masoares          #+#    #+#             */
-/*   Updated: 2024/09/30 16:30:13 by masoares         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:14:18 by masoares         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -51,14 +51,22 @@ template < typename T > Array<T>::Array(unsigned int n)
     arr = new T[n];
     _size = n;
 }
-template < typename T > unsigned int Array<T>::size( void )
+template < typename T > unsigned int Array<T>::size( void ) const
 {
     return(_size);
 }
 
-template < typename T > T&  Array<T>::operator[](int i)
+template < typename T > T&  Array<T>::operator[](unsigned int i)
 {
-    if (i < 0 || i >= (int) (this->size()))
+    if (i >= (this->size()))
+         throw std::out_of_range("Index out of range");
+    return this->arr[i];
+}
+
+template < typename T >
+const T& Array<T>::operator [](unsigned int i) const
+{
+    if (i >= (this->size()))
          throw std::out_of_range("Index out of range");
     return this->arr[i];
 }
